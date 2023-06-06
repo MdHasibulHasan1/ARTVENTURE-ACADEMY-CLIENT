@@ -1,15 +1,17 @@
 import { NavLink, useNavigate } from "react-router-dom";
-
 import { toast } from "react-hot-toast";
 import "./Navbar.css";
 
-const Navbar = () => {
-  const user = true;
+import useAuth from "../../../hooks/useAuth";
 
+const Navbar = () => {
+  const { logOut, user } = useAuth();
   const navigate = useNavigate();
 
   // Handle logout functionality
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    logOut();
+  };
 
   return (
     <>

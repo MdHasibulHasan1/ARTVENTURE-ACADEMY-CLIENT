@@ -3,7 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
-
+import { saveUser } from "../../Apis/saveUser";
 const LoginWithGoogleGitHub = ({ children }) => {
   const { signInWithGoogle, signInWithGitHub } = useAuth();
   const handleGoogleSignIn = () => {
@@ -14,7 +14,7 @@ const LoginWithGoogleGitHub = ({ children }) => {
           name: loggedUser.displayName,
           email: loggedUser.email,
         };
-
+        saveUser(userData);
         toast.success("Login successful!");
       })
       .catch((error) => {

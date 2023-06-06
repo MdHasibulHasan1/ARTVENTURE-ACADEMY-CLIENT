@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 
 import Lottie from "lottie-react";
 import animationData from "../../assets/loginAnimation.json";
+import { saveUser } from "../../Apis/saveUser";
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -21,9 +22,16 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    createUser(data.email, data.password)
+    const { name, email, image, password } = data;
+    console.log(data);
+    const userData = {
+      name,
+      email,
+    };
+    createUser(email, password)
       .then((result) => {
         const loggedUser = result.user;
+        saveUser(userData);
         // logOut the user
         logOut()
           .then((result) => {})
@@ -36,7 +44,7 @@ const SignUp = () => {
           timer: 1500,
         });
 
-        updateUserProfile(name, imgURL)
+        updateUserProfile(name, image)
           .then((result) => {})
           .catch((error) => setError(error.message));
       })
@@ -176,9 +184,9 @@ const SignUp = () => {
                 <span className="label-text">Image*</span>
               </label>
               <input
-                type="file"
+                type="url"
                 {...register("image", { required: true })}
-                className="file-input file-input-bordered w-full "
+                className="w-full border-x-0 border-t-0 border-b-2 border-b-black border px-3 py-2 outline-none text-black"
               />
             </div>
             <div className="text-black text-center mb-2">
