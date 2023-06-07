@@ -22,8 +22,13 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    const { name, email, image, password } = data;
+    const { name, email, confirmPassword, image, password } = data;
     console.log(data);
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
     const userData = {
       name,
       email,
@@ -78,12 +83,6 @@ const SignUp = () => {
               <BiUserCircle className="w-14 text-[#3a85eb] block h-14"></BiUserCircle>
             </div>
             <div className="mb-4">
-              {/* <label
-              htmlFor="name"
-              className="block text-gray-700 font-medium mb-2"
-            >
-              Name
-            </label> */}
               <input
                 type="text"
                 {...register("name", { required: true })}
@@ -95,12 +94,6 @@ const SignUp = () => {
               )}
             </div>
             <div className="mb-4">
-              {/* <label
-              htmlFor="email"
-              className="block text-gray-700 font-medium mb-2"
-            >
-              Email
-            </label> */}
               <input
                 placeholder="Enter your email address"
                 type="text"
@@ -118,13 +111,6 @@ const SignUp = () => {
               )}
             </div>
             <div className="mb-4 relative">
-              {/*  <label
-              htmlFor="password"
-              className="block text-gray-700 font-medium mb-2"
-            >
-              Password
-            </label> */}
-
               <input
                 type={showPassword ? "text" : "password"}
                 {...register("password", {
@@ -178,6 +164,22 @@ const SignUp = () => {
                   </svg>
                 )}
               </button>
+            </div>
+            <div className="mb-4">
+              <input
+                placeholder="Confirm your password"
+                type="password"
+                className="w-full border-x-0 border-t-0 border-b-2 border-b-black border px-3 py-2 outline-none text-black"
+                {...register("confirmPassword", {
+                  validate: (value) =>
+                    value === password.current || "Passwords do not match",
+                })}
+              />
+              {errors.confirmPassword && (
+                <span className="text-red-600">
+                  {errors.confirmPassword.message}
+                </span>
+              )}
             </div>
             <div className="form-control w-full mt-4">
               <label className="label">

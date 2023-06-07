@@ -87,7 +87,7 @@ const AddAClass = () => {
               name="instructorName"
               className="w-full p-2 border border-gray-300 rounded"
               readOnly
-              value={user.displayName}
+              value={user?.displayName}
               {...register("instructorName")}
             />
           </div>
@@ -102,7 +102,7 @@ const AddAClass = () => {
               name="instructorEmail"
               className="w-full p-2 border border-gray-300 rounded"
               readOnly
-              value={user.email}
+              value={user?.email}
               {...register("instructorEmail")}
             />
           </div>
