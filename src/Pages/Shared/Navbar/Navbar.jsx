@@ -202,7 +202,7 @@ const Navbar = () => {
                   aria-label="logout"
                   title="Logout"
                   className={({ isActive }) =>
-                    isActive ? "text-[#3a85eb]" : "text-[#666666]"
+                    isActive ? "text-[#666666]" : "text-[#666666]"
                   }
                 >
                   Logout

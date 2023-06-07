@@ -1,7 +1,7 @@
 import React from "react";
 
 const ManageClasses = () => {
-  return <div>thsi is manageClasses</div>;
+  return <div></div>;
 };
 
 export default ManageClasses;

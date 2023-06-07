@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
-
+import axios from "axios";
 import Swal from "sweetalert2";
 import useAuth from "../../../../hooks/useAuth";
 
@@ -15,15 +15,12 @@ const AddAClass = () => {
     formState: { errors },
   } = useForm();
   const img_hosting_token = "baae3e6b39110191c29e2e5fb79352d6";
-
   const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
 
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append("image", data.image[0]);
-    console.log(data.image[0]);
 
-    console.log(data);
     const {
       availableSeats,
       className,
@@ -31,6 +28,7 @@ const AddAClass = () => {
       instructorName,
       price,
     } = data;
+
     fetch(img_hosting_url, {
       method: "POST",
       body: formData,
@@ -39,8 +37,37 @@ const AddAClass = () => {
       .then((imgResponse) => {
         if (imgResponse.success) {
           const imgURL = imgResponse.data.display_url;
-          const { name, email, password } = data;
-          console.log(imgURL);
+          const storedData = {
+            availableSeats,
+            className,
+            instructorEmail,
+            instructorName,
+            price,
+            imgURL,
+            status: "pending",
+          };
+
+          axios
+            .post("http://localhost:5000/classes", storedData) // Replace with your server endpoint
+            .then((response) => {
+              console.log(response.data);
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Class added successfully!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              reset();
+            })
+            .catch((error) => {
+              console.error(error);
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+              });
+            });
         }
       });
   };

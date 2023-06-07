@@ -28,6 +28,7 @@ const SignUp = () => {
     const userData = {
       name,
       email,
+      role: "user",
     };
     createUser(email, password)
       .then((result) => {
