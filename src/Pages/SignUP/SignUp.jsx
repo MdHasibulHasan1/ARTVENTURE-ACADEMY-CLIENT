@@ -134,9 +134,9 @@ const SignUp = () => {
                     message: "Password must be at least six characters",
                   },
                   pattern: {
-                    value: /^(?=.*[!@#$%^&*])/,
+                    value: /^(?=.*[!@#$%^&*])(?=.*[A-Z])/,
                     message:
-                      "Password must contain at least one special character",
+                      "Password must contain at least one special character and one capital letter",
                   },
                 })}
                 placeholder="Enter your password"
