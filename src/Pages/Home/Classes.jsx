@@ -12,7 +12,7 @@ const Classes = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/classes");
+      const response = await axios.get("http://localhost:5000/approvedClasses");
       setClasses(response.data);
     } catch (error) {
       console.error("Error fetching classes:", error);
@@ -36,7 +36,7 @@ const Classes = () => {
         <div
           key={classItem._id}
           className={`class-card ${
-            classItem.availableSeats === "0" ? "class-card-disabled" : ""
+            classItem.availableSeats === "0" ? "bg-red-600" : ""
           } transform transition-transform duration-300 hover:scale-105`}
         >
           <div className="relative">

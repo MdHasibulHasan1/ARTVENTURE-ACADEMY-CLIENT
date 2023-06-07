@@ -13,6 +13,7 @@ const LoginWithGoogleGitHub = ({ children }) => {
         const userData = {
           name: loggedUser.displayName,
           email: loggedUser.email,
+          photoURL: loggedUser.photoURL,
         };
         saveUser(userData);
         toast.success("Login successful!");
@@ -29,6 +30,7 @@ const LoginWithGoogleGitHub = ({ children }) => {
         const userData = {
           name: loggedUser.displayName,
           email: loggedUser.email,
+          photoURL: loggedUser.photoURL,
         };
         saveUser(userData);
         toast.success("Login successful!");

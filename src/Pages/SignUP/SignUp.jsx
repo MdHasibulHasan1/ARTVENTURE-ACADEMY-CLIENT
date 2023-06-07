@@ -29,6 +29,7 @@ const SignUp = () => {
       name,
       email,
       role: "user",
+      photoURL: image,
     };
     createUser(email, password)
       .then((result) => {
