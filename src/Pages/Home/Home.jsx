@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import AddAClass from "../Deshboard/AddAClass/AddAClass";
+
 import Slider from "./Slider";
 
 const Home = () => {
@@ -10,7 +10,6 @@ const Home = () => {
       </Helmet>
       This is a Home page
       <Slider></Slider>
-      <AddAClass></AddAClass>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 
 import Swal from "sweetalert2";
-import useAuth from "../../../hooks/useAuth";
+import useAuth from "../../../../hooks/useAuth";
 
 const AddAClass = () => {
   const { user } = useAuth();
