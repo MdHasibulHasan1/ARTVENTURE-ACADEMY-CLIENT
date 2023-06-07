@@ -36,7 +36,7 @@ const Classes = () => {
         <div
           key={classItem._id}
           className={`class-card ${
-            classItem.availableSeats === "0" ? "bg-red-600" : ""
+            classItem.availableSeats === "0" ? "" : ""
           } transform transition-transform duration-300 hover:scale-105`}
         >
           <div className="relative">

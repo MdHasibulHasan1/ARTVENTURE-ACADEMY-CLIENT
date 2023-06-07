@@ -31,6 +31,7 @@ const LoginWithGoogleGitHub = ({ children }) => {
           name: loggedUser.displayName,
           email: loggedUser.email,
           photoURL: loggedUser.photoURL,
+          role: "student",
         };
         saveUser(userData);
         toast.success("Login successful!");

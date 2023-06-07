@@ -25,11 +25,12 @@ const SignUp = () => {
   const onSubmit = (data) => {
     const { name, email, image, password } = data;
     console.log(data);
+
     const userData = {
       name,
       email,
-      role: "user",
       photoURL: image,
+      role: "student",
     };
     createUser(email, password)
       .then((result) => {
