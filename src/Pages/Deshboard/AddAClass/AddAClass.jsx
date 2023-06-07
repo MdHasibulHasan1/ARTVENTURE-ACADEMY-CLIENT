@@ -4,8 +4,10 @@ import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 
 import Swal from "sweetalert2";
+import useAuth from "../../../hooks/useAuth";
 
 const AddAClass = () => {
+  const { user } = useAuth();
   const {
     register,
     handleSubmit,
@@ -19,9 +21,16 @@ const AddAClass = () => {
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append("image", data.image[0]);
-    // console.log(data.image[0]);
-    // console.log(data);
+    console.log(data.image[0]);
 
+    console.log(data);
+    const {
+      availableSeats,
+      className,
+      instructorEmail,
+      instructorName,
+      price,
+    } = data;
     fetch(img_hosting_url, {
       method: "POST",
       body: formData,
@@ -42,7 +51,7 @@ const AddAClass = () => {
         <title>Name | Add A Class</title>
       </Helmet>
 
-      <div className="mx-auto lg:w-11/12 shadow-2xl p-20  bg-slate-50 justify-center  items-center md:h-screen">
+      <div className="mx-auto lg:w-11/12 shadow-2xl p-20 mb-20  bg-slate-50 justify-center  items-center">
         <h1 className="text-center text-3xl">--Add A Class--</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="mx-auto">
           <div className="mb-4">
@@ -58,7 +67,16 @@ const AddAClass = () => {
               {...register("className")}
             />
           </div>
-
+          <div className="form-control w-full mb-4">
+            <label className="label">
+              <span className="label-text">Class image*</span>
+            </label>
+            <input
+              type="file"
+              {...register("image", { required: true })}
+              className="file-input file-input-bordered w-full "
+            />
+          </div>
           <div className="mb-4">
             <label htmlFor="instructorName" className="block mb-2">
               Instructor Name:
@@ -69,7 +87,7 @@ const AddAClass = () => {
               name="instructorName"
               className="w-full p-2 border border-gray-300 rounded"
               readOnly
-              //   value={user.displayName}
+              value={user.displayName}
               {...register("instructorName")}
             />
           </div>
@@ -84,7 +102,7 @@ const AddAClass = () => {
               name="instructorEmail"
               className="w-full p-2 border border-gray-300 rounded"
               readOnly
-              //   value={user.email}
+              value={user.email}
               {...register("instructorEmail")}
             />
           </div>

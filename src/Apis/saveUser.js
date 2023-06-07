@@ -1,14 +1,10 @@
-// save a user to database
-export const saveUser = user => {
-    
-  
-    fetch(`http://localhost:5000/users`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-      .then(res => res.json())
-      .then(data => console.log(data))
+import axios from 'axios';
+
+export const saveUser = async (user) => {
+  try {
+    const response = await axios.post('http://localhost:5000/users', user);
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
   }
+};
