@@ -85,20 +85,19 @@ const Navbar = () => {
                   Instructors
                 </NavLink>
               </li>
-              {user && (
-                <li>
-                  <NavLink
-                    to="/classes"
-                    aria-label="classes"
-                    title="classes"
-                    className={({ isActive }) =>
-                      isActive ? "text-[#3a85eb]" : "text-[#666666]"
-                    }
-                  >
-                    classes
-                  </NavLink>
-                </li>
-              )}
+
+              <li>
+                <NavLink
+                  to="/classes"
+                  aria-label="classes"
+                  title="classes"
+                  className={({ isActive }) =>
+                    isActive ? "text-[#3a85eb]" : "text-[#666666]"
+                  }
+                >
+                  classes
+                </NavLink>
+              </li>
 
               <li>
                 <NavLink
@@ -176,20 +175,20 @@ const Navbar = () => {
                 Instructors
               </NavLink>
             </li>
-            {user && (
-              <li>
-                <NavLink
-                  to="/classes"
-                  aria-label="classes"
-                  title="classes"
-                  className={({ isActive }) =>
-                    isActive ? "text-[#3a85eb]" : "text-[#666666]"
-                  }
-                >
-                  classes
-                </NavLink>
-              </li>
-            )}
+
+            <li>
+              <NavLink
+                to="/classes"
+                aria-label="classes"
+                title="classes"
+                className={({ isActive }) =>
+                  isActive ? "text-[#3a85eb]" : "text-[#666666]"
+                }
+              >
+                classes
+              </NavLink>
+            </li>
+
             {user && (
               <li>
                 <NavLink

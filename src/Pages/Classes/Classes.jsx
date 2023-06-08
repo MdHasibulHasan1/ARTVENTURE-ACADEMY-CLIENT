@@ -1,11 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import useSelectedClasses from "../../hooks/useSelectedClasses";
+import { useUpdateEnrolled } from "../../hooks/useUpdateEnrolled";
 
 const Classes = () => {
   const [classes, setClasses] = useState([]);
-
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [selectedClasses, refetch] = useSelectedClasses();
+  console.log(selectedClasses);
   useEffect(() => {
     fetchData();
   }, []);
@@ -19,15 +25,67 @@ const Classes = () => {
     }
   };
 
-  const { user } = useAuth();
-
-  const handleSelect = (classId) => {
+  const handleSelect = (classItem) => {
+    console.log(classItem);
+    const {
+      _id,
+      availableSeats,
+      totalEnrolled,
+      imgURL,
+      className,
+      instructorName,
+      price,
+    } = classItem;
     if (!user) {
-      alert("Please log in to select the course.");
+      Swal.fire({
+        title: "Please login to select the course",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Login now!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login", { state: { from: location } });
+        }
+      });
+      return;
+    }
+    const exist = selectedClasses.find((selected) => selected.classId === _id);
+    console.log(exist);
+    if (exist) {
+      Swal.fire({
+        title: "You are already selected this class",
+        icon: "warning",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "OK",
+      });
       return;
     }
 
-    // Handle the select button functionality here
+    const selectedItem = {
+      classId: _id,
+      email: user?.email,
+      availableSeats,
+      imgURL,
+      className,
+      instructorName,
+      price,
+    };
+    fetch("http://localhost:5000/selectedClasses", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(selectedItem),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          useUpdateEnrolled(_id, totalEnrolled);
+          refetch();
+        }
+      });
   };
 
   return (
@@ -68,7 +126,7 @@ const Classes = () => {
                 user?.role === "admin" ||
                 user?.role === "instructor"
               }
-              onClick={() => handleSelect(classItem._id)}
+              onClick={() => handleSelect(classItem)}
               className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-300"
             >
               Select

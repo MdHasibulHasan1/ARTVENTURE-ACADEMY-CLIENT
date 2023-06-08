@@ -57,20 +57,7 @@ const ManageUsers = () => {
   );
 
   const handleMakeInstructor = (user) => {
-    if (user.role === "instructor") {
-      Swal.fire({
-        title: "Remove Instructor Role",
-        text: "Are you sure you want to remove the instructor role for this user?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, make user",
-        cancelButtonText: "Cancel",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          makeInstructorMutation.mutate(user._id);
-        }
-      });
-    } else {
+    if (user.role !== "instructor") {
       makeInstructorMutation.mutate(user._id);
     }
   };
@@ -126,29 +113,31 @@ const ManageUsers = () => {
                     </button>
                   ) : (
                     <>
-                      <button
-                        onClick={() => handleMakeInstructor(user)}
-                        className="btn btn-ghost bg-blue-600 text-white"
-                        disabled={makeInstructorMutation.isLoading}
-                      >
-                        {user.role === "instructor"
-                          ? "Make User"
-                          : "Make Instructor"}
-                      </button>
-                      <button
-                        onClick={() => handleMakeAdmin(user)}
-                        className="btn btn-ghost bg-red-600 text-white"
-                        disabled={makeAdminMutation.isLoading}
-                      >
-                        Make Admin
-                      </button>
+                      {user.role !== "instructor" && (
+                        <button
+                          onClick={() => handleMakeInstructor(user)}
+                          className="btn btn-sm btn-ghost bg-blue-600 text-white"
+                          disabled={makeInstructorMutation.isLoading}
+                        >
+                          Make Instructor
+                        </button>
+                      )}
+                      {user.role !== "admin" && (
+                        <button
+                          onClick={() => handleMakeAdmin(user)}
+                          className="btn btn-sm btn-ghost bg-red-600 text-white"
+                          disabled={makeAdminMutation.isLoading}
+                        >
+                          Make Admin
+                        </button>
+                      )}
                     </>
                   )}
                 </td>
                 <td>
                   <button
                     onClick={() => handleDelete(user)}
-                    className="btn btn-ghost bg-red-600 text-white"
+                    className="btn btn-sm btn-ghost bg-red-600 text-white"
                   >
                     <FaTrashAlt></FaTrashAlt>
                   </button>

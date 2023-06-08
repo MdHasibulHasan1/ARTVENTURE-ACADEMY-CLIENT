@@ -15,9 +15,9 @@ const Dashboard = () => {
         </label>
         <Outlet></Outlet>
       </div>
-      <div className="drawer-side">
+      <div className="drawer-side bg-[#d0d0d1]">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
+        <ul className="menu p-4 w-80 h-full text-base-content">
           {/* Sidebar content here */}
           {isAdmin?.role === "admin" && (
             <>
@@ -49,7 +49,7 @@ const Dashboard = () => {
             </>
           )}
 
-          {isAdmin?.role === "users" && (
+          {isAdmin?.role === "admin" && (
             <>
               <li>
                 <NavLink to="/dashboard/mySelectedClasses">

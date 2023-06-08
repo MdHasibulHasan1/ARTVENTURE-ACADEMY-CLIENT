@@ -45,6 +45,7 @@ const AddAClass = () => {
             price,
             imgURL,
             status: "pending",
+            totalEnrolled: 0,
           };
 
           axios
@@ -79,7 +80,7 @@ const AddAClass = () => {
       </Helmet>
 
       <div className="mx-auto lg:w-11/12 shadow-2xl p-20 mb-20  bg-slate-50 justify-center  items-center">
-        <h1 className="text-center text-3xl">--Add A Class--</h1>
+        <h1 className="text-center text-3xl">---Add A Class---</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="mx-auto">
           <div className="mb-4">
             <label htmlFor="className" className="block mb-2">

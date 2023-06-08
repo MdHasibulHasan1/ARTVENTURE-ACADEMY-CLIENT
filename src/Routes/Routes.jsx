@@ -13,8 +13,9 @@ import MyEnrolledClasses from "../Pages/Deshboard/Student/MyEnrolledClasses";
 import Payment from "../Pages/Deshboard/Student/Payment";
 import ManageClasses from "../Pages/Deshboard/Admin/ManageClasses";
 import ManageUsers from "../Pages/Deshboard/Admin/ManageUsers";
-import Instructors from "../Pages/Home/Instructors";
-import Classes from "../Pages/Home/Classes";
+
+import Instructors from "../Pages/Instructor/Instructors";
+import Classes from "../Pages/Classes/Classes";
 
 export const router = createBrowserRouter([
   {

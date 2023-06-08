@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "./useAuth";
 
 import useAxiosSecure from "./useAxiosSecure";
-const myClasses = () => {
+const useMyClasses = () => {
   const { user, loading } = useAuth();
 
   const [axiosSecure] = useAxiosSecure();
@@ -18,4 +18,4 @@ const myClasses = () => {
 
   return [classes, refetch];
 };
-export default myClasses;
+export default useMyClasses;
