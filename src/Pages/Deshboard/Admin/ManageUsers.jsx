@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import { FaTrashAlt, FaUserShield } from "react-icons/fa";
+import { GiTeacher } from "react-icons/gi";
+
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
@@ -73,9 +75,9 @@ const ManageUsers = () => {
   return (
     <div className="w-full">
       <Helmet>
-        <title>Bistro Boss | All users</title>
+        <title>Name | All users</title>
       </Helmet>
-      <h3 className="text-3xl font-semibold my-4">
+      <h3 className="text-3xl font-sans font-light my-4 text-center">
         Total Users: {users.length}
       </h3>
       <div className="overflow-x-auto">
@@ -87,6 +89,8 @@ const ManageUsers = () => {
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
+              <th>Make Admin</th>
+              <th>Make Instructor</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -106,32 +110,42 @@ const ManageUsers = () => {
                 <td>
                   {user.role === "admin" ? (
                     <button
-                      className="btn btn-ghost bg-gray-400 text-white"
+                      className="btn btn-sm btn-ghost bg-gray-400 text-white"
                       disabled
                     >
                       <FaUserShield></FaUserShield>
                     </button>
                   ) : (
                     <>
-                      {user.role !== "instructor" && (
-                        <button
-                          onClick={() => handleMakeInstructor(user)}
-                          className="btn btn-sm btn-ghost bg-blue-600 text-white"
-                          disabled={makeInstructorMutation.isLoading}
-                        >
-                          Make Instructor
-                        </button>
-                      )}
                       {user.role !== "admin" && (
                         <button
                           onClick={() => handleMakeAdmin(user)}
                           className="btn btn-sm btn-ghost bg-red-600 text-white"
                           disabled={makeAdminMutation.isLoading}
                         >
-                          Make Admin
+                          <FaUserShield></FaUserShield>
                         </button>
                       )}
                     </>
+                  )}
+                </td>
+                <td>
+                  {user.role === "instructor" && (
+                    <button
+                      className="btn btn-sm btn-ghost bg-blue-600 text-white"
+                      disabled
+                    >
+                      <GiTeacher></GiTeacher>
+                    </button>
+                  )}
+                  {user.role !== "instructor" && (
+                    <button
+                      onClick={() => handleMakeInstructor(user)}
+                      className="btn btn-sm btn-ghost bg-blue-600 text-white"
+                      disabled={makeInstructorMutation.isLoading}
+                    >
+                      <GiTeacher></GiTeacher>
+                    </button>
                   )}
                 </td>
                 <td>

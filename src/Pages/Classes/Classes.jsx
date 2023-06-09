@@ -1,17 +1,22 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Reveal from "react-awesome-reveal";
+import axios from "axios";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useSelectedClasses from "../../hooks/useSelectedClasses";
 import { useUpdateEnrolled } from "../../hooks/useUpdateEnrolled";
+import useUsers from "../../hooks/useUsers";
 
 const Classes = () => {
   const [classes, setClasses] = useState([]);
   const { user } = useAuth();
   const navigate = useNavigate();
   const [selectedClasses, refetch] = useSelectedClasses();
-  console.log(selectedClasses);
+  const [users, isUserLoading] = useUsers();
+  console.log(users);
+  const currentUser = users.find((us) => us?.email === user?.email);
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -26,7 +31,6 @@ const Classes = () => {
   };
 
   const handleSelect = (classItem) => {
-    console.log(classItem);
     const {
       _id,
       availableSeats,
@@ -51,17 +55,6 @@ const Classes = () => {
       });
       return;
     }
-    const exist = selectedClasses.find((selected) => selected.classId === _id);
-    console.log(exist);
-    if (exist) {
-      Swal.fire({
-        title: "You are already selected this class",
-        icon: "warning",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "OK",
-      });
-      return;
-    }
 
     const selectedItem = {
       classId: _id,
@@ -71,6 +64,7 @@ const Classes = () => {
       className,
       instructorName,
       price,
+      status: true,
     };
     fetch("http://localhost:5000/selectedClasses", {
       method: "POST",
@@ -89,50 +83,63 @@ const Classes = () => {
   };
 
   return (
-    <div className="class-list grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {classes.map((classItem) => (
-        <div
+    <div className="group grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {classes.map((classItem, index) => (
+        <Reveal
           key={classItem._id}
-          className={`class-card ${
-            classItem.availableSeats === "0" ? "" : ""
-          } transform transition-transform duration-300 hover:scale-105`}
+          cascade
+          damping={0.1}
+          direction="down"
+          duration={500}
+          delay={index * 100}
         >
-          <div className="relative">
-            <img
-              src={classItem.imgURL}
-              alt={classItem.className}
-              className="w-full h-48 object-cover rounded-t-md"
-            />
-            {classItem.availableSeats === "0" && (
-              <div className="absolute inset-0 flex items-center justify-center bg-red-500 bg-opacity-80 rounded-t-md">
-                <p className="text-white font-semibold">Sold Out</p>
-              </div>
-            )}
+          <div
+            key={classItem._id}
+            className={` p-4 ${
+              classItem.availableSeats === "0" ? "" : ""
+            } transform transition-transform duration-300 group-hover:scale-105`}
+          >
+            <div className="relative">
+              <img
+                src={classItem.imgURL}
+                alt={classItem.className}
+                className="w-full h-48 object-cover  rounded-t-md"
+              />
+              {classItem.availableSeats === "0" && (
+                <div className="absolute inset-0 flex items-center justify-center bg-red-500 bg-opacity-80 rounded-t-md">
+                  <p className="text-white font-semibold">Sold Out</p>
+                </div>
+              )}
+            </div>
+            <div className="">
+              <h3 className="text-xl font-bold mb-2">{classItem.className}</h3>
+              <p className="text-sm text-gray-600 mb-2">
+                Instructor: {classItem.instructorName}
+              </p>
+              <p className="text-sm text-gray-600 mb-2">
+                Available Seats: {classItem.availableSeats}
+              </p>
+              <p className="text-sm text-gray-600 mb-4">
+                Price: {classItem.price}
+              </p>
+
+              <button
+                disabled={
+                  classItem.availableSeats === "0" ||
+                  currentUser?.role === "admin" ||
+                  currentUser?.role === "instructor" ||
+                  selectedClasses.find(
+                    (selected) => selected.classId === classItem._id
+                  )
+                }
+                onClick={() => handleSelect(classItem)}
+                className="px-4 py-2 w-full bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-300"
+              >
+                Select
+              </button>
+            </div>
           </div>
-          <div className="p-4">
-            <h3 className="text-xl font-bold mb-2">{classItem.className}</h3>
-            <p className="text-sm text-gray-600 mb-2">
-              Instructor: {classItem.instructorName}
-            </p>
-            <p className="text-sm text-gray-600 mb-2">
-              Available Seats: {classItem.availableSeats}
-            </p>
-            <p className="text-sm text-gray-600 mb-4">
-              Price: {classItem.price}
-            </p>
-            <button
-              disabled={
-                classItem.availableSeats === "0" ||
-                user?.role === "admin" ||
-                user?.role === "instructor"
-              }
-              onClick={() => handleSelect(classItem)}
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-300"
-            >
-              Select
-            </button>
-          </div>
-        </div>
+        </Reveal>
       ))}
     </div>
   );

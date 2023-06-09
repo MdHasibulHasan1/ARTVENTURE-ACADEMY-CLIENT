@@ -16,6 +16,7 @@ const Navbar = () => {
     localStorage.setItem("theme", theme);
     const localTheme = localStorage.getItem("theme");
     document.querySelector("html").setAttribute("data-theme", localTheme);
+    // document.querySelector("html").classList.add("text-white!important");
   }, [theme]);
 
   const handleTheme = (e) => {
@@ -32,7 +33,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar h-20 z-50  bg-[#ffffff] text-[#666666] uppercase font-semibold fixed top-0 z-51">
+      <div className="navbar h-20 z-50   text-[#666666] uppercase font-semibold fixed top-0 z-51">
         {/* Left side of the navbar */}
         <div className="navbar-start flex items-center">
           {/* Dropdown menu */}
@@ -58,7 +59,7 @@ const Navbar = () => {
             {/* Dropdown menu content */}
             <ul
               tabIndex={0}
-              className="menu  menu-compact dropdown-content p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-compact dropdown-content p-2 shadow bg-base-100 rounded-box w-52"
             >
               {/* Navigation links */}
               <li tabIndex={0}>

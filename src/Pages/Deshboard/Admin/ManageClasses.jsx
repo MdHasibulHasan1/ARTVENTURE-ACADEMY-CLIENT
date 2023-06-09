@@ -91,7 +91,12 @@ const ManageClasses = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Manage Classes</h1>
+      <div>
+        <h1 className=" mb-4 text-center font-sans font-light text-3xl">
+          Manage Classes
+        </h1>
+        <div className="underline mx-auto mb-3 w-16 border-b-2 border-yellow-500"></div>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
         {classes.map((classItem) => (
           <div
