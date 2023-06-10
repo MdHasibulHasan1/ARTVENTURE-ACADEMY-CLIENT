@@ -125,7 +125,7 @@ const Classes = () => {
 
               <button
                 disabled={
-                  classItem.availableSeats === "0" ||
+                  classItem.availableSeats == "0" ||
                   currentUser?.role === "admin" ||
                   currentUser?.role === "instructor" ||
                   selectedClasses.find(
