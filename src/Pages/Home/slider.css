@@ -1,41 +1,34 @@
-/* {
-  "banners": [
-    {
-      "title": "Art & Craft Summer Camp",
-      "description": "Unleash your creativity and join our exciting summer camp filled with art and craft activities."
-    },
-    {
-      "title": "Design Workshop",
-      "description": "Discover the world of design and learn new skills in our interactive workshop for aspiring designers."
-    },
-    {
-      "title": "Creative Writing Classes",
-      "description": "Ignite your imagination and enhance your writing skills in our creative writing classes for young writers."
-    },
-    {
-      "title": "Photography Camp",
-      "description": "Capture moments and express your vision through photography in our immersive photography camp."
-    },
-    {
-      "title": "Fashion Design Studio",
-      "description": "Unleash your fashion creativity and learn the art of designing and sewing in our fashion design studio."
-    }
-  ]
-}
- */
 
- .slide {
+ .carousel .slide .legend {
+background-color: transparent;
+
+ }
+
+ .carousel .slide {
     position: relative;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
   }
   
-  .caption {
+  .carousel .slide img {
+    display: none;
+  }
+  
+  .carousel-overlay {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #ffffff;
-    padding: 10px;
-    font-size: 18px;
+    /* background-color: rgba(235, 32, 32, 0.138); */
+    padding: 20px;
+    color: #fff;
+    height: 100%;
+  }
+  
+  .carousel-text {
+    max-width: 600px;
+    margin: 0 auto;
   }
   

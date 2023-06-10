@@ -1,106 +1,87 @@
-/* import React from "react";
+import React, { useState, useEffect } from "react";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import "./slider.css"; // Import your modified CSS file
 
 const SliderComponent = () => {
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveImageIndex((prevIndex) => (prevIndex + 1) % 3);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const summerCampData = [
+    {
+      title: "Welcome to Art & Craft Summer Camp!",
+      description:
+        "Join us for a fun-filled summer of creativity and imagination. Our Art & Craft School offers a wide range of exciting activities for students to explore and express their artistic talents.",
+      imageUrl:
+        "https://i.ibb.co/zmPVmbB/boy-scout-members-having-fun-nature-52683-90494.jpg",
+    },
+    {
+      title: "Enroll in our Creative Workshops",
+      description:
+        "Discover the joy of painting, drawing, sculpting, and more! Our creative workshops are designed to inspire and nurture young artists. Learn from experienced instructors and explore various art techniques.",
+      imageUrl:
+        "https://i.ibb.co/7YBbYDr/daily-lifestyle-caucasian-family-shoot-53876-42827.jpg",
+    },
+    {
+      title: "Explore Different Art Mediums",
+      description:
+        "Dive into the world of different art mediums, including acrylics, watercolors, pastels, and clay. Experiment with textures, colors, and forms as you bring your imagination to life through various artistic mediums.",
+      imageUrl:
+        "https://i.ibb.co/7SfbJf1/mosaic-puzzle-art-kids-children-s-creative-game-hands-are-playing-mosaic-table-colorful-multi-colore.jpg",
+    },
+    {
+      title: "Develop Your Artistic Skills",
+      description:
+        "Whether you are a beginner or have some experience, our Art & Craft School is the perfect place to enhance your artistic skills. From basic techniques to advanced concepts, our instructors will guide you every step of the way.",
+      imageUrl:
+        "https://i.ibb.co/q1MgnLp/two-little-girl-painter-art-drawing-park.jpg",
+    },
+    {
+      title: "Create Masterpieces",
+      description:
+        "Unleash your creativity and create stunning artworks. Gain confidence as you produce your very own masterpieces, learn composition, explore different styles, and showcase your unique artistic voice.",
+      imageUrl:
+        "https://i.ibb.co/q5zcfq8/close-up-children-painting-together-23-2149027437.jpg",
+    },
+    {
+      title: "Join a Vibrant Community",
+      description:
+        "Connect with fellow art enthusiasts and be part of a vibrant community. Share ideas, collaborate on projects, and engage in creative discussions. Make lifelong friendships and create memories that will last a lifetime.",
+      imageUrl:
+        "https://img.freepik.com/free-vector/art-school-banner-with-boy-drawing-canvas_107791-9436.jpg?w=900&t=st=1686330886~exp=1686331486~hmac=6c4e436d419b01b1b5c39e1f1f0ca3b58756aa23dfdfc19a0adaf74366a86ebb",
+    },
+  ];
+
   return (
-    <div>
-      <div className="carousel w-full">
-        <div id="slide1" className="carousel-item relative w-full">
-          <img
-            src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-            className="w-full h-[calc(100vh-80px)] object-cover"
-          />
-          <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <a href="#slide4" className="btn  z-10 btn-circle">
-              ❮
-            </a>
-            <a href="#slide2" className="btn  z-10 btn-circle">
-              ❯
-            </a>
+    <div className="w-full mx-auto">
+      <Carousel showThumbs={false} selectedItem={activeImageIndex}>
+        {summerCampData.map((data, index) => (
+          <div
+            key={index}
+            className="slide relative  bg-red-500 bg-cover bg-no-repeat bg-blend-overlay bg-opacity-50  bg-center bg-fixed flex flex-col items-center justify-center py-20"
+            style={{ backgroundImage: `url(${data.imageUrl})` }}
+          >
+            <div className="carousel-overlay flex items-center">
+              <div className="carousel-text">
+                <h1 className="text-3xl font-bold text-yellow-500 mb-4">
+                  {data.title}
+                </h1>
+                <p className="text-lg font-light font-serif">
+                  {data.description}
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-        <div id="slide2" className="carousel-item relative w-full">
-          <img
-            src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-            className="w-full h-[calc(100vh-80px)] object-cover"
-          />
-          <div className="absolute text-red-800 left-1/4 right-1/4 h-[calc(100vh-80px)] text-center z-0 flex items-center  my-auto">
-            <h1>Art & Craft Summer Camp</h1> <br />
-            <p>
-              Unleash your creativity and join our exciting summer camp filled
-              with art and craft activities.
-            </p>
-          </div>
-          <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <a href="#slide1" className="btn  z-10 btn-circle">
-              ❮
-            </a>
-            <a href="#slide3" className="btn  z-10 btn-circle">
-              ❯
-            </a>
-          </div>
-        </div>
-        <div id="slide3" className="carousel-item relative w-full">
-          <img
-            src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-            className="w-full h-[calc(100vh-80px)] object-cover"
-          />
-          <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <a href="#slide2" className="btn  z-10 btn-circle">
-              ❮
-            </a>
-            <a href="#slide4" className="btn  z-10 btn-circle">
-              ❯
-            </a>
-          </div>
-        </div>
-        <div id="slide4" className="carousel-item relative w-full">
-          <img
-            src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-            className="w-full h-[calc(100vh-80px)] object-cover"
-          />
-          <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <a href="#slide3" className="btn  z-10 btn-circle">
-              ❮
-            </a>
-            <a href="#slide1" className="btn  z-10 btn-circle">
-              ❯
-            </a>
-          </div>
-        </div>
-      </div>
+        ))}
+      </Carousel>
     </div>
-  );
-};
-
-export default SliderComponent; */
-
-import React from "react";
-import Slider from "react-slick";
-
-const SliderComponent = () => {
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
-
-  return (
-    <Slider {...sliderSettings}>
-      <div className="slide">
-        <img src="your-image-url-1" alt="Image 1" />
-        <div className="caption">Caption 1</div>
-      </div>
-      <div className="slide">
-        <img src="your-image-url-2" alt="Image 2" />
-        <div className="caption">Caption 2</div>
-      </div>
-      <div className="slide">
-        <img src="your-image-url-3" alt="Image 3" />
-        <div className="caption">Caption 3</div>
-      </div>
-    </Slider>
   );
 };
 

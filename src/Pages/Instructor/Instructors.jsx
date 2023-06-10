@@ -25,8 +25,11 @@ const Instructors = () => {
     <div className="container mx-auto py-6">
       <h2 className="text-2xl font-bold mb-4">Instructors</h2>
       <div className="grid grid-cols-3 gap-4">
-        {instructors.map((instructor) => (
-          <div key={instructor._id} className="bg-gray-100 p-4">
+        {instructors.map((instructor, index) => (
+          <div
+            key={instructor._id}
+            className="bg-gray-100 p-4 rounded-md shadow-md transform transition duration-500 ease-in-out hover:scale-105"
+          >
             {instructor.photoURL && (
               <img
                 src={instructor.photoURL}
