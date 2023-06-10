@@ -14,7 +14,7 @@ const Dashboard = () => {
   return (
     <div className="drawer lg:drawer-open ">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col items-center justify-center">
+      <div className="drawer-content  flex flex-col items-center ">
         <label
           htmlFor="my-drawer-2"
           className="btn btn-primary drawer-button lg:hidden"
@@ -108,16 +108,16 @@ const Dashboard = () => {
                   My Enrolled Classes
                 </NavLink>
               </div>
-              {/* <div className="py-1 text-lg text-black font-medium flex">
+              <div className="py-1 text-lg text-black font-medium flex">
                 <NavLink
-                  to={`/dashboard/payment:/`}
+                  to={`paymentHistory`}
                   className={({ isActive }) =>
                     isActive ? "text-[#0a0909be]" : "text-[#666666]"
                   }
                 >
-                  Payment
+                  Payment History
                 </NavLink>
-              </div> */}
+              </div>
             </>
           )}
         </div>

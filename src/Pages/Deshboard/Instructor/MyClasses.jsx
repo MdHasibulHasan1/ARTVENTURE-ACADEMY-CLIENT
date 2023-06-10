@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import useMyClasses from "../../../hooks/useMyClasses";
+import NotDataFound from "../../Shared/NotDataFound";
 
 const MyClasses = () => {
   const [classes, refetch] = useMyClasses();
@@ -30,107 +31,121 @@ const MyClasses = () => {
 
   return (
     <div>
-      <h2>Classes</h2>
-      <table className="w-full">
-        <thead>
-          <tr>
-            <th className="px-4 py-2">Class Name</th>
-            <th className="px-4 py-2">Status</th>
-            <th className="px-4 py-2">Enrolled Students</th>
-            <th className="px-4 py-2">Feedback</th>
-            <th className="px-4 py-2">Update</th>
-          </tr>
-        </thead>
-        <tbody>
-          {classes.map((classData) => (
-            <tr key={classData._id}>
-              <td className="border px-4 py-2">{classData.className}</td>
-              <td className="border px-4 py-2">{classData.status}</td>
-              <td className="border px-4 py-2">
-                {classData.enrolledStudents || 0}
-              </td>
-              <td className="border px-4 py-2">{classData.feedback || ""}</td>
-              <td className="border px-4 py-2">
+      {classes.length > 0 ? (
+        <div>
+          {" "}
+          <h2>Classes</h2>
+          <table className="w-full">
+            <thead>
+              <tr>
+                <th className="px-4 py-2">Class Name</th>
+                <th className="px-4 py-2">Status</th>
+                <th className="px-4 py-2">Enrolled Students</th>
+                <th className="px-4 py-2">Feedback</th>
+                <th className="px-4 py-2">Update</th>
+              </tr>
+            </thead>
+            <tbody>
+              {classes.map((classData) => (
+                <tr key={classData._id}>
+                  <td className="border px-4 py-2">{classData.className}</td>
+                  <td className="border px-4 py-2">{classData.status}</td>
+                  <td className="border px-4 py-2">
+                    {classData.enrolledStudents || 0}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {classData.feedback || ""}
+                  </td>
+                  <td className="border px-4 py-2">
+                    <button
+                      className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                      onClick={() => openUpdateModal(classData)}
+                    >
+                      Update
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {isUpdateModalOpen && (
+            <div className="fixed inset-0 flex items-center justify-center z-50">
+              <div className="bg-black bg-opacity-50 absolute inset-0"></div>
+              <div className="bg-white rounded p-4 z-10">
+                <h2 className="text-xl font-bold mb-4">Update Class</h2>
+                <div>
+                  <input
+                    type="text"
+                    value={updatedClass?.className}
+                    onChange={(e) =>
+                      setUpdatedClass({
+                        ...updatedClass,
+                        className: e.target.value,
+                      })
+                    }
+                    className="border w-full rounded py-2 px-4 mb-2"
+                    placeholder="Class Name"
+                  />
+                  <input
+                    type="text"
+                    value={updatedClass?.status}
+                    onChange={(e) =>
+                      setUpdatedClass({
+                        ...updatedClass,
+                        status: e.target.value,
+                      })
+                    }
+                    className="border  w-full rounded py-2 px-4 mb-2"
+                    placeholder="Status"
+                  />
+                  <input
+                    type="number"
+                    value={updatedClass?.price}
+                    onChange={(e) =>
+                      setUpdatedClass({
+                        ...updatedClass,
+                        price: e.target.value,
+                      })
+                    }
+                    className="border  w-full rounded py-2 px-4 mb-2"
+                    placeholder="Price"
+                  />
+                  <input
+                    type="url"
+                    value={updatedClass?.imgURL}
+                    onChange={(e) =>
+                      setUpdatedClass({
+                        ...updatedClass,
+                        imgURL: e.target.value,
+                      })
+                    }
+                    className="border rounded py-2 px-4 mb-2"
+                    placeholder="image"
+                  />
+                </div>
                 <button
+                  onClick={() => updateClass(updatedClass?._id)}
                   className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                  onClick={() => openUpdateModal(classData)}
                 >
                   Update
                 </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {isUpdateModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-black bg-opacity-50 absolute inset-0"></div>
-          <div className="bg-white rounded p-4 z-10">
-            <h2 className="text-xl font-bold mb-4">Update Class</h2>
-            <div>
-              <input
-                type="text"
-                value={updatedClass?.className}
-                onChange={(e) =>
-                  setUpdatedClass({
-                    ...updatedClass,
-                    className: e.target.value,
-                  })
-                }
-                className="border w-full rounded py-2 px-4 mb-2"
-                placeholder="Class Name"
-              />
-              <input
-                type="text"
-                value={updatedClass?.status}
-                onChange={(e) =>
-                  setUpdatedClass({
-                    ...updatedClass,
-                    status: e.target.value,
-                  })
-                }
-                className="border  w-full rounded py-2 px-4 mb-2"
-                placeholder="Status"
-              />
-              <input
-                type="number"
-                value={updatedClass?.price}
-                onChange={(e) =>
-                  setUpdatedClass({
-                    ...updatedClass,
-                    price: e.target.value,
-                  })
-                }
-                className="border  w-full rounded py-2 px-4 mb-2"
-                placeholder="Price"
-              />
-              <input
-                type="url"
-                value={updatedClass?.imgURL}
-                onChange={(e) =>
-                  setUpdatedClass({
-                    ...updatedClass,
-                    imgURL: e.target.value,
-                  })
-                }
-                className="border rounded py-2 px-4 mb-2"
-                placeholder="image"
-              />
+                <button
+                  onClick={() => setIsUpdateModalOpen(false)}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
-            <button
-              onClick={() => updateClass(updatedClass?._id)}
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Update
-            </button>
-            <button
-              onClick={() => setIsUpdateModalOpen(false)}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"
-            >
-              Cancel
-            </button>
-          </div>
+          )}{" "}
+        </div>
+      ) : (
+        <div className="text-center mt-8">
+          <NotDataFound
+            label="Add Now"
+            address="../../dashboard/addAClass"
+            message="You have to add to see your classes."
+          ></NotDataFound>
         </div>
       )}
     </div>

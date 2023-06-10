@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useMyEnrolledClasses from "../../../hooks/useMyEnrolledClasses";
 import useSelectedClasses from "../../../hooks/useSelectedClasses";
 import "./CheckoutForm.css";
 const CheckoutForm = ({ price, selected }) => {
@@ -17,10 +18,10 @@ const CheckoutForm = ({ price, selected }) => {
   const [processing, setProcessing] = useState(false);
   const navigate = useNavigate();
   const [transactionId, setTransactionId] = useState("");
-  const [selectedClasses, refetch] = useSelectedClasses();
+  const [refetch] = useSelectedClasses();
   console.log(price);
   console.log("selected", selected);
-
+  const [refetchEnrolledClasses] = useMyEnrolledClasses();
   useEffect(() => {
     if (price > 0 && selected) {
       axiosSecure.post("/create-payment-intent", { price }).then((res) => {
@@ -102,12 +103,16 @@ const CheckoutForm = ({ price, selected }) => {
         classId: selected.classId,
       };
       axiosSecure
-        .post("/payments", { paymentInfo, selectedId: selected._id })
+        .post("/payments", {
+          paymentInfo,
+          selectedId: selected._id,
+          classId: selected.classId,
+        })
         .then((res) => {
           console.log(res.data);
           if (res.data.deleteResult.insertedId) {
             refetch();
-            // display confirm
+            refetchEnrolledClasses();
           }
         });
     }
