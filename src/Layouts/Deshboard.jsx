@@ -108,16 +108,16 @@ const Dashboard = () => {
                   My Enrolled Classes
                 </NavLink>
               </div>
-              <div className="py-1 text-lg text-black font-medium flex">
+              {/* <div className="py-1 text-lg text-black font-medium flex">
                 <NavLink
-                  to="/dashboard/payment"
+                  to={`/dashboard/payment:/`}
                   className={({ isActive }) =>
                     isActive ? "text-[#0a0909be]" : "text-[#666666]"
                   }
                 >
                   Payment
                 </NavLink>
-              </div>
+              </div> */}
             </>
           )}
         </div>

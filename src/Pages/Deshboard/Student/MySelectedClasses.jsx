@@ -4,17 +4,12 @@ import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
 import useSelectedClasses from "../../../hooks/useSelectedClasses";
 import { MdDelete } from "react-icons/md";
-import CheckoutForm from "./CheckoutForm";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+
 import { Link } from "react-router-dom";
-const stripePromise = loadStripe(
-  "pk_test_51NFA0YSI9gc02NTfAsTxwI3roXGPCLhci95nzmJngZaC9ZdfERWqbDnafPeDH2bFcIgGHs8L7SEInYdHE15g2aVJ00tqWJJjZv"
-);
+
 const MySelectedClasses = () => {
   const { user } = useAuth();
   const [selectedClasses, refetch] = useSelectedClasses();
-  const [selectedClass, setSelectedClass] = useState(null);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -41,13 +36,7 @@ const MySelectedClasses = () => {
     });
   };
 
-  const handlePay = (classData) => {
-    setSelectedClass(classData);
-  };
-
-  const closeModal = () => {
-    setSelectedClass(null);
-  };
+  const handlePay = (classData) => {};
 
   return (
     <div>
@@ -78,44 +67,14 @@ const MySelectedClasses = () => {
                 >
                   <MdDelete></MdDelete>
                 </button>
-                <Link to="/dashboard/payment">
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => handlePay(classData)}
-                  >
-                    Pay
-                  </button>
+                <Link to={`/dashboard/payment/${classData.classId}`}>
+                  <button className="btn btn-sm btn-primary">Pay</button>
                 </Link>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-
-      {/* Modal */}
-      {selectedClass && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
-          <div className="bg-white p-6 rounded-lg z-10">
-            <h2 className="text-xl font-semibold mb-4">Payment Information</h2>
-            <p>
-              Class: <strong>{selectedClass.className}</strong>
-            </p>
-            <p>
-              Instructor: <strong>{selectedClass.instructorName}</strong>
-            </p>
-            <p>
-              Price: <strong>{selectedClass.price}</strong>
-            </p>
-            <Elements stripe={stripePromise}>
-              <CheckoutForm
-                closeModal={closeModal}
-                selectedClass={selectedClass}
-              />
-            </Elements>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
