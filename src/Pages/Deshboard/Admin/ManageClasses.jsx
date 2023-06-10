@@ -121,27 +121,33 @@ const ManageClasses = () => {
               </p>
               <p className="text-gray-600 mb-2">Price: {classItem.price}</p>
               <p className="text-gray-600 mb-2">Status: {classItem.status}</p>
-              <div className="grid grid-cols-3 gap-3 justify-between mt-4">
+              <div
+                className={`grid justify-between gap-2 ${
+                  classItem.status === "denied" ? "grid-cols-3" : "grid-cols-2"
+                }`}
+              >
                 <button
                   onClick={() => handleApprove(classItem._id)}
                   disabled={classItem.status !== "pending"}
-                  className="bg-green-500 text-white px-4 py-2 rounded"
+                  className="bg-green-500 text-white py-2 rounded px-4  disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-300"
                 >
                   Approve
                 </button>
                 <button
                   onClick={() => handleDeny(classItem._id)}
                   disabled={classItem.status !== "pending"}
-                  className="bg-red-500 text-white px-4 py-2 rounded"
+                  className="bg-red-500 text-white px-4 rounded py-2   disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-300"
                 >
                   Deny
                 </button>
-                <button
-                  onClick={() => handleSendFeedback(classItem._id)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded"
-                >
-                  Send Feedback
-                </button>
+                {classItem.status === "denied" && (
+                  <button
+                    onClick={() => handleSendFeedback(classItem._id)}
+                    className="bg-blue-500 text-white px-4 py-2 rounded  "
+                  >
+                    Send Feedback
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -161,13 +167,13 @@ const ManageClasses = () => {
             <div className="flex justify-end">
               <button
                 onClick={handleSubmitFeedback}
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+                className="bg-blue-500  text-white px-4 py-2 rounded"
               >
                 Submit
               </button>
               <button
                 onClick={() => setFeedbackModalOpen(false)}
-                className="bg-gray-300 text-gray-700 px-4 py-2 rounded ml-2"
+                className="bg-gray-300  text-gray-700 px-4 py-2 rounded ml-2"
               >
                 Cancel
               </button>

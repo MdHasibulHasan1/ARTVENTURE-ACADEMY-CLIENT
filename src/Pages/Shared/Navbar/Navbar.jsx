@@ -143,9 +143,16 @@ const Navbar = () => {
           </div>
 
           {/* Logo */}
-          <span className="text-gray-600 bg-yellow-100 p-2 rounded-full items-center flex">
-            H
+          <span className=" p-2 rounded-full items-center flex">
+            {/* <img
+              className="w-40 rounded-lg"
+              src="https://i.ibb.co/nQf61cK/Art-Venture-Academy-Google.png"
+              alt=""
+            /> */}
           </span>
+          <div className="text-lg font-bold text-gray-800">
+            ArtVenture Academy
+          </div>
         </div>
 
         {/* Center of the navbar */}
