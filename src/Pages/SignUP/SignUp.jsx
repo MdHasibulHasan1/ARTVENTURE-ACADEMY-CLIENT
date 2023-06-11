@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BiUserCircle } from "react-icons/bi";
 import LoginWithGoogleGitHub from "../Shared/LoginWithGoogleGitHub";
 import { useForm } from "react-hook-form";
@@ -21,7 +21,7 @@ const SignUp = () => {
     formState: { errors },
     watch,
   } = useForm();
-
+  const navigate = useNavigate();
   const onSubmit = (data) => {
     const { name, email, image, password } = data;
     console.log(data);
@@ -38,7 +38,9 @@ const SignUp = () => {
         saveUser(userData);
         // logOut the user
         logOut()
-          .then((result) => {})
+          .then((result) => {
+            navigate("/login");
+          })
           .catch((error) => console.error(error));
         Swal.fire({
           position: "top-end",
@@ -217,6 +219,7 @@ const SignUp = () => {
                 <span className="label-text">Image*</span>
               </label>
               <input
+                required
                 type="url"
                 {...register("image", { required: true })}
                 className="w-full border-x-0 border-t-0 border-b-2 border-b-black border px-3 py-2 outline-none text-black"

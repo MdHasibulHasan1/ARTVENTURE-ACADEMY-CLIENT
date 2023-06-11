@@ -8,9 +8,7 @@ const useUsers = () => {
   } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch(
-        "https://summer-camp-server-hasib7143-gmailcom.vercel.app/users"
-      );
+      const res = await fetch("http://localhost:5000/users");
       return res.json();
     },
   });

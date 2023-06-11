@@ -20,6 +20,7 @@ import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import InstructorRoute from "./InstructorRoute";
 import PaymentHistory from "../Pages/Dashboard/Student/PaymentHistory";
+import UserProfile from "../Pages/Home/UserProfile";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +47,14 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
+      },
+      {
+        path: "/updateProfile",
+        element: (
+          <PrivateRoute>
+            <UserProfile></UserProfile>
+          </PrivateRoute>
+        ),
       },
     ],
   },

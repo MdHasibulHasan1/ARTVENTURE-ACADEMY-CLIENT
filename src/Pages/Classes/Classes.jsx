@@ -9,19 +9,34 @@ import { useUpdateEnrolled } from "../../hooks/useUpdateEnrolled";
 import useUsers from "../../hooks/useUsers";
 import { Helmet } from "react-helmet-async";
 import SectionTitle from "../Shared/SectionTitle/SectionTitle";
-import useClasses from "../../hooks/useClasses";
 import useMyEnrolledClasses from "../../hooks/useMyEnrolledClasses";
-import MyEnrolledClasses from "../Dashboard/Student/MyEnrolledClasses";
 
 const Classes = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [selectedClasses, refetch] = useSelectedClasses();
   const [users, isUserLoading] = useUsers();
-  // console.log(users);
   const currentUser = users.find((us) => us?.email === user?.email);
-  const [classes, refetchClasses] = useClasses();
   const [enrolledClasses, refetchEnrolledClasses] = useMyEnrolledClasses();
+
+  const [classes, setClasses] = useState([]);
+
+  useEffect(() => {
+    fetchClasses();
+  }, []);
+
+  const fetchClasses = () => {
+    const url = "http://localhost:5000/approvedClasses";
+
+    axios
+      .get(url)
+      .then((response) => {
+        setClasses(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   const handleSelect = (classItem) => {
     const {
@@ -59,16 +74,13 @@ const Classes = () => {
       price,
       status: true,
     };
-    fetch(
-      "https://summer-camp-server-hasib7143-gmailcom.vercel.app/selectedClasses",
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(selectedItem),
-      }
-    )
+    fetch("http://localhost:5000/selectedClasses", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(selectedItem),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {

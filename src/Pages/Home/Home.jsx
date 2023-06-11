@@ -1,4 +1,6 @@
 import { Helmet } from "react-helmet-async";
+
+import CardComponent from "./CardComponent";
 import JoinOurClass from "./JoinOurClass";
 import PopularClasses from "./PopularClasses/PopularClasses";
 import PopularInstructors from "./PopularInstructors/PopularInstructors";
@@ -11,10 +13,12 @@ const Home = () => {
         <title>ARTVENTURE ACADEMY | Home</title>
       </Helmet>
       <SliderComponent></SliderComponent>
-      <PopularClasses></PopularClasses>
       <PopularInstructors></PopularInstructors>
 
+      <PopularClasses></PopularClasses>
+
       <JoinOurClass></JoinOurClass>
+      <CardComponent></CardComponent>
     </div>
   );
 };

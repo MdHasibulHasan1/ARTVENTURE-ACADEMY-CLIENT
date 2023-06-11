@@ -1,4 +1,5 @@
 import { Reveal } from "react-awesome-reveal";
+import SectionTitle from "../Shared/SectionTitle/SectionTitle";
 
 const JoinOurClass = () => {
   const skillsData = [

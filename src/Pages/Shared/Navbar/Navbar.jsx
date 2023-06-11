@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import "./Navbar.css";
 
@@ -274,11 +274,13 @@ const Navbar = () => {
                 className="tooltip tooltip-left"
                 data-tip={user?.displayName}
               >
-                <img
-                  className="ring ring-blue-300 md:ring-blue-500 rounded-full block w-8"
-                  src={user?.photoURL}
-                  alt="not found"
-                />
+                <Link to="/updateProfile">
+                  <img
+                    className="ring ring-blue-300 md:ring-blue-500 rounded-full block w-8"
+                    src={user?.photoURL}
+                    alt="not found"
+                  />
+                </Link>
               </div>
             </div>
           )}

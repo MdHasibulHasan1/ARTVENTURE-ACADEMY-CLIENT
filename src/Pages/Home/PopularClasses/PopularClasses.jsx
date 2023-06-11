@@ -10,7 +10,7 @@ const PopularClasses = () => {
   return (
     <>
       <SectionTitle subTitle="Popular Classes" title="Our"></SectionTitle>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 mb-20 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {classes.map((classItem, index) => (
           <Reveal
             key={classItem._id}

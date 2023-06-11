@@ -50,10 +50,7 @@ const AddAClass = () => {
           };
 
           axios
-            .post(
-              "https://summer-camp-server-hasib7143-gmailcom.vercel.app/classes",
-              storedData
-            ) // Replace with your server endpoint
+            .post("http://localhost:5000/classes", storedData) // Replace with your server endpoint
             .then((response) => {
               console.log(response.data);
               Swal.fire({

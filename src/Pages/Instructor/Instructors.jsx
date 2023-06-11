@@ -11,8 +11,7 @@ const Instructors = () => {
   }, []);
 
   const fetchInstructors = () => {
-    const url =
-      "https://summer-camp-server-hasib7143-gmailcom.vercel.app/instructors";
+    const url = "http://localhost:5000/instructors";
 
     axios
       .get(url)
@@ -29,6 +28,7 @@ const Instructors = () => {
       <Helmet>
         <title>ARTVENTURE ACADEMY | Instructors</title>
       </Helmet>
+
       <SectionTitle subTitle="Instructors" title="Our"></SectionTitle>
       <div className="grid grid-cols-3 gap-4">
         {instructors.map((instructor, index) => (

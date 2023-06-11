@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BiUserCircle } from "react-icons/bi";
 import LoginWithGoogleGitHub from "../Shared/LoginWithGoogleGitHub";
 import { useForm } from "react-hook-form";
@@ -13,8 +13,10 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const { register, handleSubmit, reset } = useForm();
-  const navigate = useNavigate();
   const { signIn } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
 
   const onSubmit = (data) => {
     const { email, password } = data;
@@ -25,7 +27,7 @@ const Login = () => {
         console.log(loggedUser);
 
         toast.success("Login successful!");
-        // navigate(from, { replace: true });
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);

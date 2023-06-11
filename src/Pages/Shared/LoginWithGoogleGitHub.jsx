@@ -4,8 +4,13 @@ import { FaGithub } from "react-icons/fa";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 import { saveUser } from "../../Apis/saveUser";
+import { useLocation } from "react-router-dom";
 const LoginWithGoogleGitHub = ({ children }) => {
   const { signInWithGoogle, signInWithGitHub } = useAuth();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
@@ -16,6 +21,8 @@ const LoginWithGoogleGitHub = ({ children }) => {
           photoURL: loggedUser.photoURL,
         };
         saveUser(userData);
+        navigate("/");
+        // navigate(from, { replace: true });
         toast.success("Login successful!");
       })
       .catch((error) => {
@@ -34,6 +41,8 @@ const LoginWithGoogleGitHub = ({ children }) => {
           role: "student",
         };
         saveUser(userData);
+
+        navigate(from, { replace: true });
         toast.success("Login successful!");
       })
       .catch((error) => {

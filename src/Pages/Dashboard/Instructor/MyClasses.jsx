@@ -19,7 +19,7 @@ const MyClasses = () => {
     console.log(updatedClass);
     try {
       const response = await axios.put(
-        `https://summer-camp-server-hasib7143-gmailcom.vercel.app/myClasses/update/${updatedClass._id}`,
+        `http://localhost:5000/myClasses/update/${updatedClass._id}`,
         updatedClass
       );
       // Handle the response if necessary
