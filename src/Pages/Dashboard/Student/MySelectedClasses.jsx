@@ -8,6 +8,7 @@ import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import NotDataFound from "../../Shared/NotDataFound";
+import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 
 const MySelectedClasses = () => {
   const { user } = useAuth();
@@ -24,9 +25,12 @@ const MySelectedClasses = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/mySelectedClasses/${id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://summer-camp-server-hasib7143-gmailcom.vercel.app/mySelectedClasses/${id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
@@ -41,9 +45,9 @@ const MySelectedClasses = () => {
   return (
     <div className="w-11/12 mx-auto">
       <Helmet>
-        <title>Name | Manage users</title>
+        <title>ARTVENTURE ACADEMY | My Selected Classes</title>
       </Helmet>
-
+      <SectionTitle subTitle="Selected Classes " title="My"></SectionTitle>
       {selectedClasses.length > 0 ? (
         <div className="overflow-x-auto">
           <table className="table table-zebra w-full">

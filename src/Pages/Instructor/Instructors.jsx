@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
+import SectionTitle from "../Shared/SectionTitle/SectionTitle";
 
 const Instructors = () => {
   const [instructors, setInstructors] = useState([]);
@@ -9,7 +11,8 @@ const Instructors = () => {
   }, []);
 
   const fetchInstructors = () => {
-    const url = "http://localhost:5000/instructors";
+    const url =
+      "https://summer-camp-server-hasib7143-gmailcom.vercel.app/instructors";
 
     axios
       .get(url)
@@ -22,8 +25,11 @@ const Instructors = () => {
   };
 
   return (
-    <div className="container mx-auto py-6">
-      <h2 className="text-2xl font-bold mb-4">Instructors</h2>
+    <div className="container mx-auto p4-6">
+      <Helmet>
+        <title>ARTVENTURE ACADEMY | Instructors</title>
+      </Helmet>
+      <SectionTitle subTitle="Instructors" title="Our"></SectionTitle>
       <div className="grid grid-cols-3 gap-4">
         {instructors.map((instructor, index) => (
           <div

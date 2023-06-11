@@ -63,10 +63,10 @@ const SignUp = () => {
   return (
     <>
       <Helmet>
-        <title>Name | Sign Up</title>
+        <title>ARTVENTURE ACADEMY | Sign Up</title>
       </Helmet>
       <div>
-        <div className="grid gap-4 md:grid-cols-2 mx-auto lg:w-11/12 shadow-2xl p-20 -mt-20 bg-slate-50 justify-center  items-center md:h-screen">
+        <div className="grid gap-4 md:grid-cols-2 mx-auto lg:w-11/12 shadow-2xl p-20 -mt-20 bg-slate-50 justify-center  items-center">
           <div>
             <Lottie
               style={{ width: "100%", height: "100%" }}

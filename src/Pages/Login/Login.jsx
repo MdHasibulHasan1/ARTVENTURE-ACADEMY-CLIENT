@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import Lottie from "lottie-react";
 
 import animationData from "../../assets/loginAnimation.json";
+import { Helmet } from "react-helmet-async";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -33,8 +34,11 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div className="grid gap-4 md:grid-cols-2 mx-auto lg:w-11/12 shadow-2xl p-20 -mt-20 bg-slate-50 justify-center  items-center md:h-screen">
+    <>
+      <Helmet>
+        <title>ARTVENTURE ACADEMY | Login</title>
+      </Helmet>
+      <div className="grid gap-4 md:grid-cols-2 mx-auto lg:w-11/12 shadow-2xl p-20 -mt-20 bg-slate-50 justify-center  items-center">
         <div className="">
           <Lottie
             style={{ width: "100%", height: "100%" }}
@@ -129,7 +133,7 @@ const Login = () => {
           <LoginWithGoogleGitHub>Login</LoginWithGoogleGitHub>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 

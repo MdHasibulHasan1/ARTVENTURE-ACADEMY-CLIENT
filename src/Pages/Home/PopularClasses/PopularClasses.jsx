@@ -5,7 +5,7 @@ import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 
 const PopularClasses = () => {
   const [classes, refetch] = usePopularClasses();
-  console.log(classes);
+  console.log("popular", classes);
 
   return (
     <>

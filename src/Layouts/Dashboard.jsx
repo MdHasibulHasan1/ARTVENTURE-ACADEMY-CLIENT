@@ -1,9 +1,13 @@
-import { FaUserShield } from "react-icons/fa";
+import { FaUserShield, FaRegAddressBook } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
 import useInstructor from "../hooks/useInstructor";
 import useUsers from "../hooks/useUsers";
-import { SiGoogleclassroom } from "react-icons/si";
+import { SiBookmyshow, SiGoogleclassroom } from "react-icons/si";
+import { MdFlightClass } from "react-icons/md";
+import { AiOutlineAppstoreAdd } from "react-icons/ai";
+import { BiHistory, BiSelectMultiple } from "react-icons/bi";
+import { Helmet } from "react-helmet-async";
 
 const Dashboard = () => {
   const [isAdmin] = useAdmin();
@@ -13,6 +17,9 @@ const Dashboard = () => {
   // const isAdmin = { role: "admin" };
   return (
     <div className="drawer lg:drawer-open ">
+      <Helmet>
+        <title>ARTVENTURE ACADEMY | Dashboard</title>
+      </Helmet>
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content  flex flex-col items-center ">
         <label
@@ -23,16 +30,18 @@ const Dashboard = () => {
         </label>
         <Outlet></Outlet>
       </div>
-      <div className="drawer-side bg-[#d0d0d1]">
+      <div className="drawer-side bg-gray-200">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <div className="menu p-4 w-80 h-full text-base-content">
           {/* Sidebar content here */}
-          {isAdmin && (
+          {isAdmin ? (
             <>
-              <div className="py-1 text-lg font-medium">
+              <div className="py-1 text-lg text-black font-medium flex">
                 <NavLink
                   className={({ isActive }) =>
-                    isActive ? "text-[#0a0909be]" : "text-[#666666]"
+                    isActive
+                      ? "text-black  border-b-black border-2 pb-1"
+                      : "text-gray-500"
                   }
                   to="/dashboard/manageClasses"
                 >
@@ -46,7 +55,9 @@ const Dashboard = () => {
                 <NavLink
                   to="/dashboard/manageUsers"
                   className={({ isActive }) =>
-                    isActive ? "text-[#0a0909be] " : "text-[#666666] "
+                    isActive
+                      ? "text-black  border-b-black border-2 pb-1"
+                      : "text-[#666666] "
                   }
                 >
                   <div className="flex items-center gap-1">
@@ -56,66 +67,85 @@ const Dashboard = () => {
                 </NavLink>
               </div>
             </>
-          )}
-
-          {isInstructor ? (
+          ) : isInstructor ? (
             <>
-              <div className="py-1 text-lg text-black font-medium flex">
+              <div className="py-1 text-lg font-medium flex">
                 <NavLink
                   className={({ isActive }) =>
-                    isActive ? "text-[#0a0909be] " : "text-[#666666] "
+                    isActive
+                      ? "text-black border-b-black border-2 pb-1 "
+                      : "text-[#666666] "
                   }
                   to="/dashboard/addAClass"
                 >
-                  Add a Class
+                  <div className="flex items-center gap-1">
+                    <AiOutlineAppstoreAdd />
+                    Add a Class
+                  </div>
                 </NavLink>
               </div>
 
-              <div className="py-1 text-lg text-black font-medium flex">
+              <div className="py-1 text-lg font-medium flex">
                 <NavLink
                   to="/dashboard/myClasses"
                   className={({ isActive }) =>
-                    isActive ? "text-[#0a0909be]" : "text-[#666666]"
+                    isActive
+                      ? "text-black border-b-black border-2 pb-1"
+                      : "text-[#666666]"
                   }
                 >
-                  My Classes
+                  <div className="flex items-center gap-1">
+                    <MdFlightClass />
+                    My Classes
+                  </div>
                 </NavLink>
               </div>
             </>
           ) : (
-            ""
-          )}
-
-          {!isAdmin && !isInstructor && (
             <>
-              <div className="py-1 text-lg text-black font-medium flex">
+              <div className="py-1 text-lg  font-medium flex">
                 <NavLink
                   to="/dashboard/mySelectedClasses"
                   className={({ isActive }) =>
-                    isActive ? "text-[#0a0909be]" : "text-[#666666]"
+                    isActive
+                      ? "text-black border-b-black border-2 pb-1"
+                      : "text-[#666666]"
                   }
                 >
-                  My Selected Classes:
+                  <div className="flex items-center gap-1">
+                    <BiSelectMultiple></BiSelectMultiple>
+                    My Selected Classes:
+                  </div>
                 </NavLink>
               </div>
-              <div className="py-1 text-lg text-black font-medium flex">
+              <div className="py-1 text-lg font-medium flex">
                 <NavLink
                   to="/dashboard/myEnrolledClasses"
                   className={({ isActive }) =>
-                    isActive ? "text-[#0a0909be]" : "text-[#666666]"
+                    isActive
+                      ? "text-black border-b-black border-2 pb-1"
+                      : "text-[#666666]"
                   }
                 >
-                  My Enrolled Classes
+                  <div className="flex items-center gap-1">
+                    <SiBookmyshow></SiBookmyshow>
+                    My Enrolled Classes
+                  </div>
                 </NavLink>
               </div>
-              <div className="py-1 text-lg text-black font-medium flex">
+              <div className="py-1 text-lg font-medium flex">
                 <NavLink
                   to={`paymentHistory`}
                   className={({ isActive }) =>
-                    isActive ? "text-[#0a0909be]" : "text-[#666666]"
+                    isActive
+                      ? "text-black border-b-black border-2 pb-1"
+                      : "text-[#666666]"
                   }
                 >
-                  Payment History
+                  <div className="flex items-center gap-1">
+                    <BiHistory></BiHistory>
+                    Payment History
+                  </div>
                 </NavLink>
               </div>
             </>
@@ -127,8 +157,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-/* 
-          
-        
-     */

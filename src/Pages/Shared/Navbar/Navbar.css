@@ -33,6 +33,6 @@ li:after{
     transition: 0.3s;
 }
 
- li:hover:after{
+li:hover:after{
     width: 100%;
 }

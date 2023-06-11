@@ -1,4 +1,4 @@
-## Repository
+## ARTVENTURE ACADEMY
 
 ## Here are some of its best features:
 
@@ -16,7 +16,8 @@
 - Tailwind
 - Vite
 - mongodb
+- JWT
 
 ## Live Link
 
-Hosted in Firebase -> [Name](https://)
+Hosted in Firebase -> [Name](https://summer-camp-school.web.app/)

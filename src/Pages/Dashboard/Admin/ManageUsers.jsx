@@ -6,6 +6,7 @@ import { GiTeacher } from "react-icons/gi";
 
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 
 const ManageUsers = () => {
   const [axiosSecure] = useAxiosSecure();
@@ -75,11 +76,11 @@ const ManageUsers = () => {
   return (
     <div className="w-full">
       <Helmet>
-        <title>Name | All users</title>
+        <title>ARTVENTURE ACADEMY | Manage Users</title>
       </Helmet>
-      <h3 className="text-3xl font-sans font-light my-4 text-center">
-        Total Users: {users.length}
-      </h3>
+
+      <SectionTitle subTitle="Users: " title="Total"></SectionTitle>
+
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
           {/* head */}

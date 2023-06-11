@@ -1,6 +1,8 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import useMyEnrolledClasses from "../../../hooks/useMyEnrolledClasses";
 import NotDataFound from "../../Shared/NotDataFound";
+import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 
 const PaymentHistory = () => {
   const [enrolledClasses] = useMyEnrolledClasses();
@@ -8,6 +10,10 @@ const PaymentHistory = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>ARTVENTURE ACADEMY | Payment History</title>
+      </Helmet>
+      <SectionTitle subTitle="History" title="Payment"></SectionTitle>
       {enrolledClasses.length > 0 ? (
         enrolledClasses.map((payment) => (
           <div

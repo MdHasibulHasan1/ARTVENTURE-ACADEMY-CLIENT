@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
+import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 
 const ManageClasses = () => {
   const [classes, setClasses] = useState([]);
@@ -14,7 +16,9 @@ const ManageClasses = () => {
 
   const fetchClasses = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/classes");
+      const response = await axios.get(
+        "https://summer-camp-server-hasib7143-gmailcom.vercel.app/classes"
+      );
       setClasses(response.data);
     } catch (error) {
       console.error("Error fetching classes:", error);
@@ -23,7 +27,9 @@ const ManageClasses = () => {
 
   const handleApprove = async (classId) => {
     try {
-      await axios.put(`http://localhost:5000/classes/approve/${classId}`);
+      await axios.put(
+        `https://summer-camp-server-hasib7143-gmailcom.vercel.app/classes/approve/${classId}`
+      );
       fetchClasses();
       Swal.fire({
         icon: "success",
@@ -42,7 +48,9 @@ const ManageClasses = () => {
 
   const handleDeny = async (classId) => {
     try {
-      await axios.put(`http://localhost:5000/classes/deny/${classId}`);
+      await axios.put(
+        `https://summer-camp-server-hasib7143-gmailcom.vercel.app/classes/deny/${classId}`
+      );
       fetchClasses();
       Swal.fire({
         icon: "success",
@@ -65,9 +73,12 @@ const ManageClasses = () => {
   };
   const handleSubmitFeedback = async () => {
     try {
-      await axios.patch(`http://localhost:5000/classes/${selectedClassId}`, {
-        feedback: feedbackText,
-      });
+      await axios.patch(
+        `https://summer-camp-server-hasib7143-gmailcom.vercel.app/classes/${selectedClassId}`,
+        {
+          feedback: feedbackText,
+        }
+      );
 
       // Reset the state variables
       setSelectedClassId(null);
@@ -91,11 +102,11 @@ const ManageClasses = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <Helmet>
+        <title>ARTVENTURE ACADEMY | Manage Classes</title>
+      </Helmet>
       <div>
-        <h1 className=" mb-4 text-center font-sans font-light text-3xl">
-          Manage Classes
-        </h1>
-        <div className="underline mx-auto mb-3 w-16 border-b-2 border-yellow-500"></div>
+        <SectionTitle subTitle="Classes: " title="Manage"></SectionTitle>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
         {classes.map((classItem) => (

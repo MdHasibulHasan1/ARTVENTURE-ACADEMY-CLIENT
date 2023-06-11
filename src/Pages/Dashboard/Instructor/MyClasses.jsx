@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import useMyClasses from "../../../hooks/useMyClasses";
 import NotDataFound from "../../Shared/NotDataFound";
+import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 
 const MyClasses = () => {
   const [classes, refetch] = useMyClasses();
@@ -17,7 +19,7 @@ const MyClasses = () => {
     console.log(updatedClass);
     try {
       const response = await axios.put(
-        `http://localhost:5000/myClasses/update/${updatedClass._id}`,
+        `https://summer-camp-server-hasib7143-gmailcom.vercel.app/myClasses/update/${updatedClass._id}`,
         updatedClass
       );
       // Handle the response if necessary
@@ -31,6 +33,10 @@ const MyClasses = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>ARTVENTURE ACADEMY | My Classes</title>
+      </Helmet>
+      <SectionTitle subTitle="Classes" title="My"></SectionTitle>
       {classes.length > 0 ? (
         <div>
           {" "}
@@ -58,7 +64,7 @@ const MyClasses = () => {
                   </td>
                   <td className="border px-4 py-2">
                     <button
-                      className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                      className="bg-[#2563EB] hover:bg-[#2564eba6] text-white font-bold py-2 px-4 rounded"
                       onClick={() => openUpdateModal(classData)}
                     >
                       Update
@@ -125,7 +131,7 @@ const MyClasses = () => {
                 </div>
                 <button
                   onClick={() => updateClass(updatedClass?._id)}
-                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                  className="bg-[#2563EB] hover:bg-[#2564eba6] text-white font-bold py-2 px-4 rounded"
                 >
                   Update
                 </button>

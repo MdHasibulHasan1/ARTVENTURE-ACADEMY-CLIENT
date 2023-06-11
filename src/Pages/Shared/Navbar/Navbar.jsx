@@ -93,7 +93,7 @@ const Navbar = () => {
                   aria-label="classes"
                   title="classes"
                   className={({ isActive }) =>
-                    isActive ? "text-[#3a85eb]" : "text-[#666666]"
+                    isActive ? "text-[#3a85eb] " : "text-[#666666]"
                   }
                 >
                   classes

@@ -2,6 +2,8 @@ import React from "react";
 import useMyEnrolledClasses from "../../../hooks/useMyEnrolledClasses";
 import Anime from "react-anime";
 import NotDataFound from "../../Shared/NotDataFound";
+import { Helmet } from "react-helmet-async";
+import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 
 const MyEnrolledClasses = () => {
   const [enrolledClasses] = useMyEnrolledClasses();
@@ -9,15 +11,16 @@ const MyEnrolledClasses = () => {
 
   return (
     <div className="container mx-auto">
+      <Helmet>
+        <title>ARTVENTURE ACADEMY | My Enrolled Classes</title>
+      </Helmet>
       {enrolledClasses.length > 0 ? (
         <Anime
           translateY={[-10, 0]}
           opacity={[0, 1]}
           delay={(el, index) => index * 100}
         >
-          <h1 className="text-2xl text-center font-bold mb-4">
-            My Enrolled Classes
-          </h1>
+          <SectionTitle subTitle="Enrolled Classes " title="My"></SectionTitle>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {enrolledClasses.map((enrolledClass) => (
               <div

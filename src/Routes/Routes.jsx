@@ -5,21 +5,21 @@ import Home from "../Pages/Home/Home";
 import SignUp from "../pages/SignUP/SignUp";
 import Login from "../pages/Login/Login";
 import ErrorPage from "../Pages/ErrorPage";
-import Dashboard from "../Layouts/Deshboard";
-import AddAClass from "../Pages/Deshboard/Instructor/AddAClass/AddAClass";
-import MyClasses from "../Pages/Deshboard/Instructor/MyClasses";
-import MySelectedClasses from "../Pages/Deshboard/Student/MySelectedClasses";
-import MyEnrolledClasses from "../Pages/Deshboard/Student/MyEnrolledClasses";
-import Payment from "../Pages/Deshboard/Student/Payment";
-import ManageClasses from "../Pages/Deshboard/Admin/ManageClasses";
-import ManageUsers from "../Pages/Deshboard/Admin/ManageUsers";
+import Dashboard from "../Layouts/Dashboard";
+import AddAClass from "../Pages/Dashboard/Instructor/AddAClass/AddAClass";
+import MyClasses from "../Pages/Dashboard/Instructor/MyClasses";
+import MySelectedClasses from "../Pages/Dashboard/Student/MySelectedClasses";
+import MyEnrolledClasses from "../Pages/Dashboard/Student/MyEnrolledClasses";
+import Payment from "../Pages/Dashboard/Student/Payment";
+import ManageClasses from "../Pages/Dashboard/Admin/ManageClasses";
+import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 
 import Instructors from "../Pages/Instructor/Instructors";
 import Classes from "../Pages/Classes/Classes";
 import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import InstructorRoute from "./InstructorRoute";
-import PaymentHistory from "../Pages/Deshboard/Student/PaymentHistory";
+import PaymentHistory from "../Pages/Dashboard/Student/PaymentHistory";
 
 export const router = createBrowserRouter([
   {

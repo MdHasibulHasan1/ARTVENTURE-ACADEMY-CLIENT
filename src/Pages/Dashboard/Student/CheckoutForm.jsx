@@ -83,6 +83,7 @@ const CheckoutForm = ({ price, selected }) => {
     setProcessing(false);
     if (paymentIntent.status === "succeeded") {
       setTransactionId(paymentIntent.id);
+
       Swal.fire({
         icon: "success",
         title: "Payment Successful",
@@ -93,6 +94,7 @@ const CheckoutForm = ({ price, selected }) => {
       });
       // save payment information to the server
       navigate("../myEnrolledClasses");
+
       const paymentInfo = {
         email: user?.email,
 

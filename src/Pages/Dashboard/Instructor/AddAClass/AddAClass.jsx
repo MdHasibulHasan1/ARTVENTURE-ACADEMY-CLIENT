@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import Swal from "sweetalert2";
 import useAuth from "../../../../hooks/useAuth";
+import SectionTitle from "../../../Shared/SectionTitle/SectionTitle";
 
 const AddAClass = () => {
   const { user } = useAuth();
@@ -49,7 +50,10 @@ const AddAClass = () => {
           };
 
           axios
-            .post("http://localhost:5000/classes", storedData) // Replace with your server endpoint
+            .post(
+              "https://summer-camp-server-hasib7143-gmailcom.vercel.app/classes",
+              storedData
+            ) // Replace with your server endpoint
             .then((response) => {
               console.log(response.data);
               Swal.fire({
@@ -76,11 +80,11 @@ const AddAClass = () => {
   return (
     <>
       <Helmet>
-        <title>Name | Add A Class</title>
+        <title>ARTVENTURE ACADEMY | Add A Class</title>
       </Helmet>
 
       <div className="mx-auto lg:w-11/12 shadow-2xl p-20 mb-20  bg-slate-50 justify-center  items-center">
-        <h1 className="text-center text-3xl">---Add A Class---</h1>
+        <SectionTitle subTitle="A Classes" title="Add"></SectionTitle>
         <form onSubmit={handleSubmit(onSubmit)} className="mx-auto">
           <div className="mb-4">
             <label htmlFor="className" className="block mb-2">

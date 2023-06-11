@@ -3,26 +3,13 @@ import Swal from "sweetalert2";
 
 // update room status
 export const useUpdateEnrolled = async (id, totalEnrolled) => {
-  /*  fetch(`http://localhost:5000/popularClasses/${id}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(totalEnrolled),
-  })
-    .then((res) => res.json())
-    .then((result) => {
-      console.log(result);
-      if (result.insertedId) {
-        Swal.fire({
-          icon: "success",
-          title: "Toy Added Successfully",
-          text: "The toy has been added successfully!",
-        });
-      }
-    }); */
   try {
-    axios.patch(`http://localhost:5000/popularClasses/${id}`, {
-      totalEnrolled,
-    });
+    axios.patch(
+      `https://summer-camp-server-hasib7143-gmailcom.vercel.app/popularClasses/${id}`,
+      {
+        totalEnrolled,
+      }
+    );
     console.log(id);
     Swal.fire({
       position: "top-end",

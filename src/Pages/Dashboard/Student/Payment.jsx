@@ -5,6 +5,8 @@ import { Elements } from "@stripe/react-stripe-js";
 
 import useSelectedClasses from "../../../hooks/useSelectedClasses";
 import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import useMyEnrolledClasses from "../../../hooks/useMyEnrolledClasses";
 
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 const Payment = () => {
@@ -16,6 +18,9 @@ const Payment = () => {
   console.log(selected);
   return (
     <div className="w-full p-6">
+      <Helmet>
+        <title>ARTVENTURE ACADEMY | Payment</title>
+      </Helmet>
       <div>
         {selected && (
           <div className="">

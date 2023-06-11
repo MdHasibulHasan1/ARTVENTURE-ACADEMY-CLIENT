@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800">
+    <footer className="box-border">
       {/* Footer content */}
       <div className=" py-8 bg-gray-200">
         <div className="container mx-auto px-4">
