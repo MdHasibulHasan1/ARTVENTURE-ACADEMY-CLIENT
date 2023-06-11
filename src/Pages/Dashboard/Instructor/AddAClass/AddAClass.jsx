@@ -6,9 +6,11 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import useAuth from "../../../../hooks/useAuth";
 import SectionTitle from "../../../Shared/SectionTitle/SectionTitle";
+import { AiOutlineLoading } from "react-icons/ai";
 
 const AddAClass = () => {
   const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -19,6 +21,7 @@ const AddAClass = () => {
   const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
 
   const onSubmit = (data) => {
+    setLoading(true);
     const formData = new FormData();
     formData.append("image", data.image[0]);
 
@@ -52,7 +55,7 @@ const AddAClass = () => {
           axios
             .post("http://localhost:5000/classes", storedData) // Replace with your server endpoint
             .then((response) => {
-              console.log(response.data);
+              setLoading(false);
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -167,9 +170,13 @@ const AddAClass = () => {
           <div>
             <button
               type="submit"
-              className="px-4 w-full py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              className="px-4 flex justify-center w-full py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             >
-              Add
+              {loading ? (
+                <AiOutlineLoading className="m-auto animate-spin"></AiOutlineLoading>
+              ) : (
+                "Add A Class"
+              )}
             </button>
           </div>
         </form>

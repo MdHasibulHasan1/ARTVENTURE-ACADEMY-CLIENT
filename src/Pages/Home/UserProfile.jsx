@@ -7,6 +7,7 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import useAuth from "../../hooks/useAuth";
 import useUserData from "../../hooks/useUserData";
+import { AiOutlineLoading } from "react-icons/ai";
 
 const UserProfile = () => {
   const [userData, refetchUser] = useUserData();
@@ -16,17 +17,13 @@ const UserProfile = () => {
   const [phoneNumber, setPhoneNumber] = useState(userData?.phoneNumber || "");
   const [address, setAddress] = useState(userData?.address || "");
   const [gender, setGender] = useState(userData?.gender || "");
-
+  const [loading, setLoading] = useState(false);
   const handlePhoneChange = (value) => {
     setPhoneNumber(value);
   };
 
-  const handleCountryChange = (selectedOption) => {
-    const countryCode = selectedOption?.value || "";
-    setPhoneNumber(countryCode + phoneNumber);
-  };
-
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
 
     try {
@@ -45,7 +42,7 @@ const UserProfile = () => {
       if (response.data.acknowledged) {
         updateUserProfile(name, photoURL);
         refetchUser();
-
+        setLoading(false);
         Swal.fire({
           icon: "success",
           title: "Profile Updated",
@@ -65,7 +62,7 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto">
+    <div className="w-11/12 mx-auto mb-5">
       <div className="bg-white rounded shadow p-4">
         <div className="flex items-center mb-4">
           <img
@@ -188,9 +185,13 @@ const UserProfile = () => {
         <div className="flex grow items-center justify-center">
           <button
             type="submit"
-            className="px-4 py-2 mx-auto block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none"
+            className="px-4 text-center flex  w-full py-2 mx-auto justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none"
           >
-            Update
+            {loading ? (
+              <AiOutlineLoading className="m-auto animate-spin"></AiOutlineLoading>
+            ) : (
+              "Update"
+            )}
           </button>
         </div>
       </form>

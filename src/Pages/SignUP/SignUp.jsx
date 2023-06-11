@@ -14,6 +14,7 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const { createUser, logOut, updateUserProfile } = useAuth();
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -23,6 +24,7 @@ const SignUp = () => {
   } = useForm();
   const navigate = useNavigate();
   const onSubmit = (data) => {
+    setLoading(true);
     const { name, email, image, password } = data;
     console.log(data);
 
@@ -36,6 +38,7 @@ const SignUp = () => {
       .then((result) => {
         const loggedUser = result.user;
         saveUser(userData);
+        setLoading(false);
         // logOut the user
         logOut()
           .then((result) => {
@@ -233,9 +236,13 @@ const SignUp = () => {
             </div>
             <button
               type="submit"
-              className="w-6/12 mx-auto block bg-[#3a85eb] text-white py-2 px-4 rounded-md hover:bg-[#666666] focus:outline-none"
+              className="w-6/12 mx-auto flex justify-center bg-[#3a85eb] text-white py-2 px-4 rounded-md hover:bg-[#666666] focus:outline-none"
             >
-              Sign Up
+              {loading ? (
+                <AiOutlineLoading className="m-auto animate-spin"></AiOutlineLoading>
+              ) : (
+                "Sign UP"
+              )}
             </button>
             <div className="text-red-600 text-center">{error}</div>
             <LoginWithGoogleGitHub>Sign Up</LoginWithGoogleGitHub>

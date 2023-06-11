@@ -6,9 +6,10 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import Lottie from "lottie-react";
-
+import { TbFidgetSpinner } from "react-icons/tb";
 import animationData from "../../assets/loginAnimation.json";
 import { Helmet } from "react-helmet-async";
+import { AiOutlineLoading } from "react-icons/ai";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -17,8 +18,9 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
-
+  const [loading, setLoading] = useState(false);
   const onSubmit = (data) => {
+    setLoading(true);
     const { email, password } = data;
     console.log(data);
     signIn(email, password)
@@ -28,6 +30,7 @@ const Login = () => {
 
         toast.success("Login successful!");
         navigate(from, { replace: true });
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -127,11 +130,17 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="w-6/12 mx-auto block bg-[#3a85eb] text-white py-2 px-4 rounded-md hover:bg-[#666666] focus:outline-none"
+            className="w-6/12 mx-auto flex justify-center bg-[#3a85eb] text-white py-2 px-4 rounded-md hover:bg-[#666666] focus:outline-none"
           >
-            Login
+            {loading ? (
+              <AiOutlineLoading className="m-auto animate-spin">
+                {" "}
+              </AiOutlineLoading>
+            ) : (
+              "Login"
+            )}
           </button>
-          <div className="text-black">{error}</div>
+          <div className="text-black text-center ">{error}</div>
           <LoginWithGoogleGitHub>Login</LoginWithGoogleGitHub>
         </form>
       </div>
