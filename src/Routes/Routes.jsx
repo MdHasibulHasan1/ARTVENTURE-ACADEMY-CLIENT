@@ -21,6 +21,8 @@ import PrivateRoute from "./PrivateRoute";
 import InstructorRoute from "./InstructorRoute";
 import PaymentHistory from "../Pages/Dashboard/Student/PaymentHistory";
 import UserProfile from "../Pages/Home/UserProfile";
+import InstructorClasses from "../Pages/Instructor/InstructorClasses";
+import UserRoute from "./UserRoute";
 
 export const router = createBrowserRouter([
   {
@@ -48,11 +50,20 @@ export const router = createBrowserRouter([
         path: "/login",
         element: <Login></Login>,
       },
+
       {
         path: "/updateProfile",
         element: (
           <PrivateRoute>
             <UserProfile></UserProfile>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/details/:email",
+        element: (
+          <PrivateRoute>
+            <InstructorClasses></InstructorClasses>
           </PrivateRoute>
         ),
       },
@@ -85,22 +96,34 @@ export const router = createBrowserRouter([
       },
       {
         path: "mySelectedClasses",
-        element: <MySelectedClasses></MySelectedClasses>,
+        element: (
+          <UserRoute>
+            <MySelectedClasses></MySelectedClasses>
+          </UserRoute>
+        ),
       },
       {
         path: "myEnrolledClasses",
-        element: <MyEnrolledClasses></MyEnrolledClasses>,
+        element: (
+          <UserRoute>
+            <MyEnrolledClasses></MyEnrolledClasses>
+          </UserRoute>
+        ),
       },
       {
         path: "paymentHistory",
-        element: <PaymentHistory></PaymentHistory>,
+        element: (
+          <UserRoute>
+            <PaymentHistory></PaymentHistory>
+          </UserRoute>
+        ),
       },
       {
-        path: "payment/:Id",
+        path: "payment",
         element: (
-          <PrivateRoute>
+          <UserRoute>
             <Payment></Payment>
-          </PrivateRoute>
+          </UserRoute>
         ),
       },
       {

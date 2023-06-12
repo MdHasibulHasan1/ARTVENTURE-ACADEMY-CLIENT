@@ -24,10 +24,17 @@ const MyEnrolledClasses = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {enrolledClasses.map((enrolledClass) => (
               <div
-                className="border rounded p-4"
+                className="border rounded p-4 flex flex-col"
                 key={enrolledClass.payment._id}
               >
-                <h2 className="text-xl font-semibold">
+                <div className="flex items-center justify-center mb-4">
+                  <img
+                    className="w-full h-64 object-cover"
+                    src={enrolledClass?.classInfo?.imgURL}
+                    alt={enrolledClass?.classInfo?.className}
+                  />
+                </div>
+                <h2 className="text-xl font-semibold mb-2">
                   {enrolledClass?.classInfo?.className}
                 </h2>
                 <p>Instructor: {enrolledClass?.classInfo?.instructorName}</p>
@@ -40,16 +47,9 @@ const MyEnrolledClasses = () => {
                   Available Seats: {enrolledClass?.classInfo?.availableSeats}
                 </p>
                 <p>Total Enrolled: {enrolledClass?.classInfo?.totalEnrolled}</p>
-
-                <div className="mt-2 overflow-hidden rounded-lg hover:scale-105 transform transition duration-300">
-                  <img
-                    src={enrolledClass?.classInfo?.imgURL}
-                    alt={enrolledClass?.classInfo?.className}
-                  />
-                </div>
               </div>
             ))}
-          </div>{" "}
+          </div>
         </Anime>
       ) : (
         <NotDataFound

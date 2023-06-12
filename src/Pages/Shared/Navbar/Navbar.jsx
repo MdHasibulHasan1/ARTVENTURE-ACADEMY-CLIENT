@@ -16,7 +16,6 @@ const Navbar = () => {
     localStorage.setItem("theme", theme);
     const localTheme = localStorage.getItem("theme");
     document.querySelector("html").setAttribute("data-theme", localTheme);
-    // document.querySelector("html").classList.add("text-white!important");
   }, [theme]);
 
   const handleTheme = (e) => {
@@ -33,7 +32,11 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar h-20 z-50   text-[#666666] uppercase font-semibold fixed top-0 z-51">
+      <div
+        className={`navbar h-20 z-50 ${
+          theme !== "dark" ? "bg-gray-200" : "bg-[#1d232a]"
+        }  text-[#666666] uppercase font-semibold fixed top-0 z-51`}
+      >
         {/* Left side of the navbar */}
         <div className="navbar-start flex items-center">
           {/* Dropdown menu */}
@@ -150,7 +153,11 @@ const Navbar = () => {
               alt=""
             /> */}
           </span>
-          <div className="text-lg font-bold text-gray-800">
+          <div
+            className={`${
+              theme !== "dark" ? "text-white" : "text-black"
+            }text-lg font-bold `}
+          >
             ArtVenture Academy
           </div>
         </div>

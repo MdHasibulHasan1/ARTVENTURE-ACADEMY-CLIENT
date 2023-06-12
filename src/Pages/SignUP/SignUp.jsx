@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import Lottie from "lottie-react";
 import animationData from "../../assets/loginAnimation.json";
 import { saveUser } from "../../Apis/saveUser";
+import { AiOutlineLoading } from "react-icons/ai";
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -59,6 +60,7 @@ const SignUp = () => {
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
         setError(error.message);
       });
   };

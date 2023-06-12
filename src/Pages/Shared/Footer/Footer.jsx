@@ -44,7 +44,7 @@ const Footer = () => {
                 <div>
                   <Link
                     to="/"
-                    className="text-blue-500 hover:underline hover:text-blue-600 transition-colors duration-300"
+                    className="text-gray-500 hover:underline hover:text-gray-600 transition-colors duration-300"
                   >
                     Home
                   </Link>
@@ -52,7 +52,7 @@ const Footer = () => {
                 <div>
                   <Link
                     to="/instructors"
-                    className="text-blue-500 hover:underline hover:text-blue-600 transition-colors duration-300"
+                    className="text-gray-500 hover:underline hover:text-gray-600 transition-colors duration-300"
                   >
                     Instructors
                   </Link>
@@ -60,7 +60,7 @@ const Footer = () => {
                 <div>
                   <Link
                     to="/classes"
-                    className="text-blue-500 hover:underline hover:text-blue-600 transition-colors duration-300"
+                    className="text-gray-500 hover:underline hover:text-gray-600 transition-colors duration-300"
                   >
                     Classes
                   </Link>
@@ -68,7 +68,7 @@ const Footer = () => {
                 <div>
                   <Link
                     to="/dashboard"
-                    className="text-blue-500 hover:underline hover:text-blue-600 transition-colors duration-300"
+                    className="text-gray-500 hover:underline hover:text-gray-600 transition-colors duration-300"
                   >
                     Dashboard
                   </Link>
@@ -83,25 +83,25 @@ const Footer = () => {
               <div className="flex items-center">
                 <Link
                   to="#"
-                  className="text-blue-500 hover:text-blue-600 mr-4 transition-colors duration-300"
+                  className="text-gray-500 hover:text-gray-900 mr-4 transition-colors duration-300"
                 >
                   <FaFacebookF />
                 </Link>
                 <Link
                   to="#"
-                  className="text-blue-500 hover:text-blue-600 mr-4 transition-colors duration-300"
+                  className="text-gray-500 hover:text-gray-900 mr-4 transition-colors duration-300"
                 >
                   <FaTwitter />
                 </Link>
                 <Link
                   to="#"
-                  className="text-blue-500 hover:text-blue-600 mr-4 transition-colors duration-300"
+                  className="text-gray-500 hover:text-gray-900 mr-4 transition-colors duration-300"
                 >
                   <FaInstagram />
                 </Link>
                 <Link
                   to="#"
-                  className="text-blue-500 hover:text-blue-600 transition-colors duration-300"
+                  className="text-gray-500 hover:text-gray-600 transition-colors duration-300"
                 >
                   <FaLinkedin />
                 </Link>

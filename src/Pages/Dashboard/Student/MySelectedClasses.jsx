@@ -25,9 +25,12 @@ const MySelectedClasses = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/mySelectedClasses/${id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://summer-camp-server-olive.vercel.app/mySelectedClasses/${id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
@@ -75,7 +78,7 @@ const MySelectedClasses = () => {
                     >
                       <MdDelete></MdDelete>
                     </button>
-                    <Link to={`/dashboard/payment/${classData.classId}`}>
+                    <Link to={`/dashboard/payment`} state={classData?.classId}>
                       <button className="btn btn-sm btn-primary">Pay</button>
                     </Link>
                   </td>

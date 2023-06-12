@@ -41,9 +41,6 @@ const CheckoutForm = ({ price, selected }) => {
       return;
     }
 
-    // Get a reference to a mounted CardElement. Elements knows how
-    // to find your CardElement because there can only ever be one of
-    // each type of element.
     const card = elements.getElement(CardElement);
 
     if (card == null) {
@@ -89,12 +86,8 @@ const CheckoutForm = ({ price, selected }) => {
         title: "Payment Successful",
         text: "Your payment has been processed successfully.",
         confirmButtonText: "OK",
-      }).then(() => {
-        // Handle any further actions after the payment success message, if needed
-      });
+      }).then(() => {});
       // save payment information to the server
-      navigate("../myEnrolledClasses");
-
       const paymentInfo = {
         email: user?.email,
 

@@ -12,11 +12,11 @@ import { AiOutlineLoading } from "react-icons/ai";
 const UserProfile = () => {
   const [userData, refetchUser] = useUserData();
   const { user, updateUserProfile } = useAuth();
-  const [name, setName] = useState(userData?.name || "");
-  const [photoURL, setPhotoURL] = useState(userData?.photoURL || "");
-  const [phoneNumber, setPhoneNumber] = useState(userData?.phoneNumber || "");
-  const [address, setAddress] = useState(userData?.address || "");
-  const [gender, setGender] = useState(userData?.gender || "");
+  const [name, setName] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [gender, setGender] = useState("");
   const [loading, setLoading] = useState(false);
   const handlePhoneChange = (value) => {
     setPhoneNumber(value);
@@ -28,7 +28,7 @@ const UserProfile = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/profile/update/${user.email}`,
+        `https://summer-camp-server-olive.vercel.app/profile/update/${user.email}`,
         {
           name,
           photoURL,
@@ -96,6 +96,7 @@ const UserProfile = () => {
               Name:
             </label>
             <input
+              required
               type="text"
               id="name"
               name="name"
@@ -112,10 +113,11 @@ const UserProfile = () => {
               Image:
             </label>
             <input
-              type="text"
+              type="url"
               id="photoURL"
               name="photoURL"
               value={photoURL}
+              required
               onChange={(e) => setPhotoURL(e.target.value)}
               className="form-input p-2 mt-1 block w-full border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 hover:border-blue-500 hover:ring-blue-500"
             />
@@ -132,27 +134,13 @@ const UserProfile = () => {
               type="text"
               id="address"
               name="address"
+              required
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               className="form-input p-2 mt-1 block w-full border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 hover:border-blue-500 hover:ring-blue-500"
             />
           </div>
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-700 font-semibold"
-            >
-              Email:
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={user?.email}
-              readOnly
-              className="form-input p-2 mt-1 block w-full border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 hover:border-blue-500 hover:ring-blue-500"
-            />
-          </div>
+
           <div className="mb-4">
             <label
               htmlFor="gender"
@@ -177,6 +165,7 @@ const UserProfile = () => {
         <div className="mb-4">
           <PhoneInput
             value={phoneNumber}
+            defaultCountry="BD"
             onChange={handlePhoneChange}
             placeholder="Phone Number"
             className=" p-2 mt-1 block w-full border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 hover:border-blue-500 hover:ring-blue-500"

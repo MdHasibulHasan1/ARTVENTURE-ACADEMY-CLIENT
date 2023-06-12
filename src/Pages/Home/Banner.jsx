@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import "./slider.css"; // Import your modified CSS file
+import "./slider.css";
 
-const SliderComponent = () => {
+const Banner = () => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   useEffect(() => {
@@ -65,17 +65,15 @@ const SliderComponent = () => {
         {summerCampData.map((data, index) => (
           <div
             key={index}
-            className="slide relative  bg-red-500 bg-cover bg-no-repeat bg-blend-overlay bg-opacity-50  bg-center bg-fixed flex flex-col items-center justify-center py-20"
+            className="slide relative hover:bg-opacity-80 bg-red-500 bg-cover bg-no-repeat bg-blend-overlay bg-opacity-50  bg-center bg-fixed flex flex-col items-center justify-center py-20"
             style={{ backgroundImage: `url(${data.imageUrl})` }}
           >
-            <div className="carousel-overlay flex items-center">
-              <div className="carousel-text">
-                <h1 className="text-3xl font-bold text-yellow-500 mb-4">
+            <div className="carousel-overlay flex items-end mb-10">
+              <div className="carousel-text text-black bg-gray-500 bg-opacity-5">
+                <h1 className="text-3xl text-yellow-500   md:text-4xl tracking-[4px] uppercase font-bold mb-4">
                   {data.title}
                 </h1>
-                <p className="text-lg font-light font-serif">
-                  {data.description}
-                </p>
+                <p className="text-lg  font-serif">{data.description}</p>
               </div>
             </div>
           </div>
@@ -85,4 +83,4 @@ const SliderComponent = () => {
   );
 };
 
-export default SliderComponent;
+export default Banner;

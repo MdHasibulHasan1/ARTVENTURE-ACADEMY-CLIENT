@@ -26,7 +26,7 @@ const Classes = () => {
   }, []);
 
   const fetchClasses = () => {
-    const url = "http://localhost:5000/approvedClasses";
+    const url = "https://summer-camp-server-olive.vercel.app/approvedClasses";
 
     axios
       .get(url)
@@ -74,7 +74,7 @@ const Classes = () => {
       price,
       status: true,
     };
-    fetch("http://localhost:5000/selectedClasses", {
+    fetch("https://summer-camp-server-olive.vercel.app/selectedClasses", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -118,7 +118,7 @@ const Classes = () => {
                   alt={classItem.className}
                   className="w-full h-48 object-cover  rounded-t-md"
                 />
-                {classItem.availableSeats === "0" && (
+                {classItem.availableSeats == "0" && (
                   <div className="absolute inset-0 flex items-center justify-center bg-red-500 bg-opacity-80 rounded-t-md">
                     <p className="text-white font-semibold">Sold Out</p>
                   </div>

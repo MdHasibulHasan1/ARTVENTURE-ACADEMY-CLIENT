@@ -14,7 +14,7 @@ const JoinOurClass = () => {
           <div className="">
             <div className="flex flex-col gap-4">
               <Reveal cascade damping={0.1} direction="up" duration={500}>
-                <p className="text-sm text-designColor tracking-[4px] uppercase">
+                <p className="text-sm tracking-[4px] uppercase">
                   Join Our Class
                 </p>
                 <h2 className="text-3xl md:text-4xl font-bold">

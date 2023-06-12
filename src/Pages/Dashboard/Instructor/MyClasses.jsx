@@ -19,7 +19,7 @@ const MyClasses = () => {
     console.log(updatedClass);
     try {
       const response = await axios.put(
-        `http://localhost:5000/myClasses/update/${updatedClass._id}`,
+        `https://summer-camp-server-olive.vercel.app/myClasses/update/${updatedClass._id}`,
         updatedClass
       );
       // Handle the response if necessary
@@ -38,9 +38,7 @@ const MyClasses = () => {
       </Helmet>
       <SectionTitle subTitle="Classes" title="My"></SectionTitle>
       {classes.length > 0 ? (
-        <div>
-          {" "}
-          <h2>Classes</h2>
+        <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr>
@@ -64,7 +62,8 @@ const MyClasses = () => {
                   </td>
                   <td className="border px-4 py-2">
                     <button
-                      className="bg-[#2563EB] hover:bg-[#2564eba6] text-white font-bold py-2 px-4 rounded"
+                      disabled={classData?.status == "approved"}
+                      className="bg-[#2563EB] hover:bg-[#2564eba6] disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-300 text-white font-bold py-2 px-4 rounded"
                       onClick={() => openUpdateModal(classData)}
                     >
                       Update

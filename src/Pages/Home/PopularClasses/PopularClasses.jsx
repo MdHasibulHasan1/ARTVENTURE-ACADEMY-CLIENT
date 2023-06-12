@@ -5,7 +5,6 @@ import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 
 const PopularClasses = () => {
   const [classes, refetch] = usePopularClasses();
-  console.log("popular", classes);
 
   return (
     <>
@@ -40,7 +39,6 @@ const PopularClasses = () => {
                   Total Enrolled: {classItem.totalEnrolled}
                 </p>
                 <p className="text-gray-500">Price: ${classItem.price}</p>
-                {/* Add more class details if needed */}
               </div>
             </div>
           </Reveal>

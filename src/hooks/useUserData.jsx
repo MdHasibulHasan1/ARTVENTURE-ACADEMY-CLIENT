@@ -10,7 +10,7 @@ const useUserData = () => {
     enabled: !loading,
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/profile/update/${user?.email}`
+        `https://summer-camp-server-olive.vercel.app/profile/update/${user?.email}`
       );
       return res.data;
     },

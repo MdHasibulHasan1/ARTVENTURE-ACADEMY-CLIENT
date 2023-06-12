@@ -21,14 +21,13 @@ background-color: transparent;
     bottom: 0;
     left: 0;
     width: 100%;
-    /* background-color: rgba(235, 32, 32, 0.138); */
     padding: 20px;
-    color: #fff;
+
     height: 100%;
   }
   
   .carousel-text {
-    max-width: 600px;
+    max-width: 90%;
     margin: 0 auto;
   }
   

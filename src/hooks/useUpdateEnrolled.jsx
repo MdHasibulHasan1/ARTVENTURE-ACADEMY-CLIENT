@@ -4,9 +4,12 @@ import Swal from "sweetalert2";
 // update room status
 export const useUpdateEnrolled = async (id, totalEnrolled) => {
   try {
-    axios.patch(`http://localhost:5000/popularClasses/${id}`, {
-      totalEnrolled,
-    });
+    axios.patch(
+      `https://summer-camp-server-olive.vercel.app/popularClasses/${id}`,
+      {
+        totalEnrolled,
+      }
+    );
     console.log(id);
     Swal.fire({
       position: "top-end",

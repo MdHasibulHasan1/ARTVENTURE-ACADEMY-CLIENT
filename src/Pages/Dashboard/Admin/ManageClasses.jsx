@@ -16,7 +16,9 @@ const ManageClasses = () => {
 
   const fetchClasses = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/classes");
+      const response = await axios.get(
+        "https://summer-camp-server-olive.vercel.app/classes"
+      );
       setClasses(response.data);
     } catch (error) {
       console.error("Error fetching classes:", error);
@@ -25,7 +27,9 @@ const ManageClasses = () => {
 
   const handleApprove = async (classId) => {
     try {
-      await axios.put(`http://localhost:5000/classes/approve/${classId}`);
+      await axios.put(
+        `https://summer-camp-server-olive.vercel.app/classes/approve/${classId}`
+      );
       fetchClasses();
       Swal.fire({
         icon: "success",
@@ -44,7 +48,9 @@ const ManageClasses = () => {
 
   const handleDeny = async (classId) => {
     try {
-      await axios.put(`http://localhost:5000/classes/deny/${classId}`);
+      await axios.put(
+        `https://summer-camp-server-olive.vercel.app/classes/deny/${classId}`
+      );
       fetchClasses();
       Swal.fire({
         icon: "success",
@@ -67,9 +73,12 @@ const ManageClasses = () => {
   };
   const handleSubmitFeedback = async () => {
     try {
-      await axios.patch(`http://localhost:5000/classes/${selectedClassId}`, {
-        feedback: feedbackText,
-      });
+      await axios.patch(
+        `https://summer-camp-server-olive.vercel.app/classes/${selectedClassId}`,
+        {
+          feedback: feedbackText,
+        }
+      );
 
       // Reset the state variables
       setSelectedClassId(null);
