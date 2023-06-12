@@ -73,7 +73,7 @@ const SignUp = () => {
         <title>ARTVENTURE ACADEMY | Sign Up</title>
       </Helmet>
       <div>
-        <div className="grid gap-4 md:grid-cols-2 mx-auto lg:w-11/12 shadow-2xl p-20 -mt-20 bg-slate-50 justify-center  items-center">
+        <div className="grid gap-4 md:grid-cols-2 mx-auto lg:w-11/12 shadow-2xl p-2 bg-slate-50 justify-center  items-center">
           <div>
             <Lottie
               style={{ width: "100%", height: "100%" }}
@@ -83,7 +83,7 @@ const SignUp = () => {
             />
           </div>
           <form
-            className="w-full rounded-lg  py-2 px-6"
+            className="w-full rounded-lg  py-2 md:px-6"
             onSubmit={handleSubmit(onSubmit)}
           >
             <h2 className="text-2xl text-gray-800 font-bold mb-2">Sign Up</h2>

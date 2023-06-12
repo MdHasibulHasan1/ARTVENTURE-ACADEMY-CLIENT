@@ -43,7 +43,7 @@ const Login = () => {
       <Helmet>
         <title>ARTVENTURE ACADEMY | Login</title>
       </Helmet>
-      <div className="grid gap-4 md:grid-cols-2 mx-auto lg:w-11/12 shadow-2xl p-20 -mt-20 bg-slate-50 justify-center  items-center">
+      <div className="grid gap-4 md:grid-cols-2 mx-auto lg:w-11/12 shadow-2xl p-4 bg-slate-50 justify-center  items-center">
         <div className="">
           <Lottie
             style={{ width: "100%", height: "100%" }}
@@ -61,12 +61,6 @@ const Login = () => {
           </div>
 
           <div className="mb-4">
-            {/* <label
-            htmlFor="email"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Email
-          </label> */}
             <input
               placeholder="Enter your email address"
               type="email"
@@ -76,12 +70,6 @@ const Login = () => {
             />
           </div>
           <div className="mb-4 relative">
-            {/*   <label
-            htmlFor="password"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Password
-          </label> */}
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Enter your password"

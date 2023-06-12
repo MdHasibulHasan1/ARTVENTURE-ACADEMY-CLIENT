@@ -9,7 +9,7 @@ const Banner = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveImageIndex((prevIndex) => (prevIndex + 1) % 3);
-    }, 5000);
+    }, 15000);
 
     return () => clearInterval(interval);
   }, []);
@@ -65,15 +65,15 @@ const Banner = () => {
         {summerCampData.map((data, index) => (
           <div
             key={index}
-            className="slide relative hover:bg-opacity-80 bg-red-500 bg-cover bg-no-repeat bg-blend-overlay bg-opacity-50  bg-center bg-fixed flex flex-col items-center justify-center py-20"
+            className="slide relative hover:bg-opacity-50 bg-red-500 bg-cover bg-no-repeat bg-blend-overlay bg-opacity-40  bg-center bg-fixed flex flex-col items-center justify-center py-20"
             style={{ backgroundImage: `url(${data.imageUrl})` }}
           >
             <div className="carousel-overlay flex items-end mb-10">
-              <div className="carousel-text text-black bg-gray-500 bg-opacity-5">
+              <div className="carousel-text text-white bg-opacity-70 bg-gray-900 hover:bg-opacity-100 p-5 rounded-lg">
                 <h1 className="text-3xl text-yellow-500   md:text-4xl tracking-[4px] uppercase font-bold mb-4">
                   {data.title}
                 </h1>
-                <p className="text-lg  font-serif">{data.description}</p>
+                <p className="text-md font-thin">{data.description}</p>
               </div>
             </div>
           </div>
