@@ -1,16 +1,28 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import "./Navbar.css";
-
 import useAuth from "../../../hooks/useAuth";
 import { useEffect, useState } from "react";
+import {
+  FaHome,
+  FaChalkboardTeacher,
+  FaBook,
+  FaUser,
+  FaSignOutAlt,
+} from "react-icons/fa";
 
 const Navbar = () => {
-  const { logOut, user } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
+  const { logOut, user, setLoading } = useAuth();
+
+  const handleLoading = () => {
+    if (!user) {
+      setLoading(false);
+    }
+  };
+
   const navigate = useNavigate();
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
-  );
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
@@ -19,59 +31,171 @@ const Navbar = () => {
   }, [theme]);
 
   const handleTheme = (e) => {
-    if (e.target.checked) {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
+    setTheme(e.target.checked ? "dark" : "light");
   };
-  // Handle logout functionality
+
   const handleLogout = () => {
     logOut();
   };
 
   return (
-    <>
-      <div
-        className={`navbar h-20 z-50 ${
-          theme !== "dark" ? "bg-gray-200" : "bg-[#1d232a]"
-        }  text-[#666666] uppercase font-semibold fixed top-0 z-51`}
-      >
-        {/* Left side of the navbar */}
-        <div className="navbar-start flex items-center">
-          {/* Dropdown menu */}
-          <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost lg:hidden">
-              {/* Menu icon */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
-            </label>
+    <div
+      className={`fixed z-30 w-full py-4 px-4 transition-colors duration-300 uppercase text-lg ${
+        theme === "dark"
+          ? "bg-[#1d232a] text-gray-200"
+          : "bg-gray-200 text-gray-900"
+      } shadow-md`}
+    >
+      <div className="flex justify-between items-center">
+        <Link to="/" className="flex items-center gap-2">
+          <img
+            className="w-full h-10"
+            src="artventure.png"
+            alt="Artventure Academy"
+          />
+          <span
+            className={`text-xl font-bold ${
+              theme === "dark" ? "text-orange-500" : "text-red-500"
+            }`}
+          >
+            Academy
+          </span>
+        </Link>
 
-            {/* Dropdown menu content */}
-            <ul
-              tabIndex={0}
-              className="menu menu-compact dropdown-content p-2 shadow bg-base-100 rounded-box w-52"
+        <div className="hidden lg:flex items-center gap-8">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive
+                ? "text-orange-500 border-b-2 border-orange-500  font-bold bg-gray-100 rounded-lg px-2 py-1"
+                : "text-gray-600 hover:text-orange-500 transition font-bold duration-300"
+            }
+          >
+            {/* <FaHome className="inline-block" />  */}
+            Home
+          </NavLink>
+          <NavLink
+            to="/instructors"
+            className={({ isActive }) =>
+              isActive
+                ? "text-orange-500 border-b-2 border-orange-500 font-bold bg-gray-100 rounded-lg px-2 py-1"
+                : "text-gray-600 hover:text-orange-500 transition font-bold duration-300"
+            }
+          >
+            {/* <FaChalkboardTeacher className="inline-block mr-2" />  */}
+            Instructors
+          </NavLink>
+          <NavLink
+            to="/classes"
+            className={({ isActive }) =>
+              isActive
+                ? "text-orange-500 border-b-2 border-orange-500 font-bold bg-gray-100 rounded-lg px-2 py-1"
+                : "text-gray-600 hover:text-orange-500 font-bold transition duration-300"
+            }
+          >
+            {/* <FaBook className="inline-block mr-2" />  */}
+            Classes
+          </NavLink>
+          <NavLink
+            to="/dashboard"
+            onClick={handleLoading}
+            className={({ isActive }) =>
+              isActive
+                ? "text-orange-500 border-b-2 border-orange-500 font-bold bg-gray-100 rounded-lg px-2 py-1"
+                : "text-gray-600 hover:text-orange-500 font-bold transition duration-300"
+            }
+          >
+            {/* <FaUser className="inline-block mr-2" /> */}
+            Dashboard
+          </NavLink>
+        </div>
+
+        <div className="flex items-center gap-4">
+          {user ? (
+            <div className="relative">
+              <img
+                onClick={() => setProfileMenuOpen(!isProfileMenuOpen)}
+                className="w-8 h-8 rounded-full cursor-pointer"
+                src={user.photoURL || "https://i.ibb.co/LYS7q2X/user.png"}
+                alt="User Avatar"
+              />
+              {isProfileMenuOpen && (
+                <ul className="absolute right-0 mt-2 bg-white border rounded-lg shadow-lg z-10">
+                  <li className="px-4 py-2 hover:bg-gray-200">
+                    <Link to="/updateProfile">Profile</Link>
+                  </li>
+                  <li className="px-4 py-2">
+                    <label className="flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        className="hidden"
+                        onChange={handleTheme}
+                      />
+                      <span className="mr-2 whitespace-nowrap">
+                        {theme === "dark" ? "Light Mode" : "Dark Mode"}
+                      </span>
+                      <div className="w-10 h-6 bg-gray-400 rounded-full flex items-center p-1">
+                        <div
+                          className={`w-4 h-4 bg-white rounded-full shadow-md transform duration-300 ${
+                            theme === "dark" ? "translate-x-4" : ""
+                          }`}
+                        ></div>
+                      </div>
+                    </label>
+                  </li>
+                  <li className="px-4 py-2 hover:bg-gray-200">
+                    <NavLink onClick={handleLogout} to="/">
+                      Logout
+                    </NavLink>
+                  </li>
+                </ul>
+              )}
+            </div>
+          ) : (
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-orange-500 border-b-2 border-orange-500 font-bold bg-gray-100 rounded-lg px-2 py-1"
+                  : "text-gray-600 font-bold hover:text-orange-500 transition duration-300"
+              }
             >
-              {/* Navigation links */}
-              <li tabIndex={0}>
+              Login
+            </NavLink>
+          )}
+
+          <button
+            className="lg:hidden p-2"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? (
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fillRule="evenodd"
+                  d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414L11.414 11l2.293 2.293a1 1 0 01-1.414 1.414L10 12.414l-2.293 2.293a1 1 0 01-1.414-1.414L8.586 11 6.293 8.707a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+            ) : (
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M3 5h14a1 1 0 010 2H3a1 1 0 010-2zm0 4h14a1 1 0 010 2H3a1 1 0 010-2zm0 4h14a1 1 0 010 2H3a1 1 0 010-2z"></path>
+              </svg>
+            )}
+          </button>
+        </div>
+      </div>
+
+      {isMenuOpen && (
+        <div className="lg:hidden mt-4">
+          <nav>
+            <ul className="space-y-4">
+              <li>
                 <NavLink
                   to="/"
-                  aria-label="Home"
-                  title="Home"
                   className={({ isActive }) =>
-                    isActive ? "text-[#3a85eb]" : "text-[#666666]"
+                    isActive
+                      ? "text-orange-500 border-b-2 border-orange-500 font-bold bg-gray-100 rounded-lg px-2 py-1"
+                      : "text-gray-600 hover:text-orange-500 transition duration-300"
                   }
                 >
                   Home
@@ -80,220 +204,44 @@ const Navbar = () => {
               <li>
                 <NavLink
                   to="/instructors"
-                  aria-label="Instructors"
-                  title="Instructors"
                   className={({ isActive }) =>
-                    isActive ? "text-[#3a85eb]" : "text-[#666666]"
+                    isActive
+                      ? "text-orange-500 border-b-2 border-orange-500 font-bold bg-gray-100 rounded-lg px-2 py-1"
+                      : "text-gray-600 hover:text-orange-500 transition duration-300"
                   }
                 >
                   Instructors
                 </NavLink>
               </li>
-
               <li>
                 <NavLink
                   to="/classes"
-                  aria-label="classes"
-                  title="classes"
                   className={({ isActive }) =>
-                    isActive ? "text-[#3a85eb] " : "text-[#666666]"
+                    isActive
+                      ? "text-orange-500 border-b-2 border-orange-500 font-bold bg-gray-100 rounded-lg px-2 py-1"
+                      : "text-gray-600 hover:text-orange-500 transition duration-300"
                   }
                 >
-                  classes
+                  Classes
                 </NavLink>
               </li>
-
-              <li>
+              <li onClick={handleLoading}>
                 <NavLink
                   to="/dashboard"
-                  aria-label="Dashboard"
-                  title="Dashboard"
                   className={({ isActive }) =>
-                    isActive ? "text-[#3a85eb]" : "text-[#666666]"
+                    isActive
+                      ? "text-orange-500 border-b-2 border-orange-500 font-bold bg-gray-100 rounded-lg px-2 py-1"
+                      : "text-gray-600 hover:text-orange-500 transition duration-300"
                   }
                 >
                   Dashboard
                 </NavLink>
-              </li>
-
-              <li>
-                {user ? (
-                  <NavLink
-                    onClick={handleLogout}
-                    to="/"
-                    aria-label="blog"
-                    title="Logout"
-                    className={({ isActive }) =>
-                      isActive ? "text-[#666666]" : "text-[#666666]"
-                    }
-                  >
-                    Logout
-                  </NavLink>
-                ) : (
-                  <NavLink
-                    to="/login"
-                    aria-label="login"
-                    title="Login"
-                    className={({ isActive }) =>
-                      isActive ? "text-[#3a85eb]" : "text-[#666666]"
-                    }
-                  >
-                    Login
-                  </NavLink>
-                )}
               </li>
             </ul>
-          </div>
-
-          {/* Logo */}
-          <span className=" p-2 rounded-full items-center flex">
-            {/* <img
-              className="w-40 rounded-lg"
-              src="https://i.ibb.co/nQf61cK/Art-Venture-Academy-Google.png"
-              alt=""
-            /> */}
-          </span>
-          <div
-            className={`${
-              theme !== "dark" ? "text-white" : "text-black"
-            }text-lg font-bold `}
-          >
-            ArtVenture Academy
-          </div>
+          </nav>
         </div>
-
-        {/* Center of the navbar */}
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            {/* Navigation links */}
-            <li tabIndex={0}>
-              <NavLink
-                to="/"
-                aria-label="Home"
-                title="Home"
-                className={({ isActive }) =>
-                  isActive ? "text-[#3a85eb]" : "default"
-                }
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/instructors"
-                aria-label="Instructors"
-                title="Instructors"
-                className={({ isActive }) =>
-                  isActive ? "text-[#3a85eb]" : "text-[#666666]"
-                }
-              >
-                Instructors
-              </NavLink>
-            </li>
-
-            <li>
-              <NavLink
-                to="/classes"
-                aria-label="classes"
-                title="classes"
-                className={({ isActive }) =>
-                  isActive ? "text-[#3a85eb]" : "text-[#666666]"
-                }
-              >
-                classes
-              </NavLink>
-            </li>
-
-            {user && (
-              <li>
-                <NavLink
-                  to="/dashboard"
-                  aria-label="Dashboard"
-                  title="Dashboard"
-                  className={({ isActive }) =>
-                    isActive ? "text-[#3a85eb]" : "text-[#666666]"
-                  }
-                >
-                  Dashboard
-                </NavLink>
-              </li>
-            )}
-
-            <li>
-              {user ? (
-                <NavLink
-                  onClick={handleLogout}
-                  to="/"
-                  aria-label="logout"
-                  title="Logout"
-                  className={({ isActive }) =>
-                    isActive ? "text-[#666666]" : "text-[#666666]"
-                  }
-                >
-                  Logout
-                </NavLink>
-              ) : (
-                <NavLink
-                  to="/login"
-                  aria-label="login"
-                  title="Login"
-                  className={({ isActive }) =>
-                    isActive ? "text-[#3a85eb]" : "text-[#666666]"
-                  }
-                >
-                  Login
-                </NavLink>
-              )}
-            </li>
-          </ul>
-        </div>
-
-        {/* Right side of the navbar */}
-        <div className="navbar-end flex gap-4 justify-end">
-          <div>
-            <label className="swap swap-rotate">
-              {/* this hidden checkbox controls the state */}
-              <input type="checkbox" onChange={handleTheme} />
-
-              {/* sun icon */}
-              <svg
-                className="swap-on fill-current w-6 h-6"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
-              </svg>
-
-              {/* moon icon */}
-              <svg
-                className="swap-off fill-current w-6 h-6"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
-              </svg>
-            </label>
-          </div>
-          {user && (
-            <div>
-              {/* User profile picture */}
-              <div
-                className="tooltip tooltip-left"
-                data-tip={user?.displayName}
-              >
-                <Link to="/updateProfile">
-                  <img
-                    className="ring ring-blue-300 md:ring-blue-500 rounded-full block w-8"
-                    src={user?.photoURL}
-                    alt="not found"
-                  />
-                </Link>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </>
+      )}
+    </div>
   );
 };
 

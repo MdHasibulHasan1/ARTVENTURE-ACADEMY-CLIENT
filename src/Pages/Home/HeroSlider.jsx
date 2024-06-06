@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import "./slider.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import SingleHeroSlider from "./SingleHeroSlider";
+import { Navigation } from "swiper/modules";
+import "swiper/css/navigation";
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
-const Banner = () => {
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
-
-  /*  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveImageIndex((prevIndex) => (prevIndex + 1) % 3);
-    }, 15000);
-
-    return () => clearInterval(interval);
-  }, []);
- */
+const HeroSlider = () => {
   const summerCampData = [
     {
+      id: 1,
       title: "Welcome to Art & Craft Summer Camp!",
       description:
         "Join us for a fun-filled summer of creativity and imagination. Our Art & Craft School offers a wide range of exciting activities for students to explore and express their artistic talents.",
@@ -23,6 +16,7 @@ const Banner = () => {
         "https://i.ibb.co/zmPVmbB/boy-scout-members-having-fun-nature-52683-90494.jpg",
     },
     {
+      id: 2,
       title: "Enroll in our Creative Workshops",
       description:
         "Discover the joy of painting, drawing, sculpting, and more! Our creative workshops are designed to inspire and nurture young artists. Learn from experienced instructors and explore various art techniques.",
@@ -30,6 +24,7 @@ const Banner = () => {
         "https://i.ibb.co/7YBbYDr/daily-lifestyle-caucasian-family-shoot-53876-42827.jpg",
     },
     {
+      id: 3,
       title: "Explore Different Art Mediums",
       description:
         "Dive into the world of different art mediums, including acrylics, watercolors, pastels, and clay. Experiment with textures, colors, and forms as you bring your imagination to life through various artistic mediums.",
@@ -37,6 +32,7 @@ const Banner = () => {
         "https://i.ibb.co/7SfbJf1/mosaic-puzzle-art-kids-children-s-creative-game-hands-are-playing-mosaic-table-colorful-multi-colore.jpg",
     },
     {
+      id: 4,
       title: "Develop Your Artistic Skills",
       description:
         "Whether you are a beginner or have some experience, our Art & Craft School is the perfect place to enhance your artistic skills. From basic techniques to advanced concepts, our instructors will guide you every step of the way.",
@@ -44,6 +40,7 @@ const Banner = () => {
         "https://i.ibb.co/q1MgnLp/two-little-girl-painter-art-drawing-park.jpg",
     },
     {
+      id: 5,
       title: "Create Masterpieces",
       description:
         "Unleash your creativity and create stunning artworks. Gain confidence as you produce your very own masterpieces, learn composition, explore different styles, and showcase your unique artistic voice.",
@@ -51,6 +48,7 @@ const Banner = () => {
         "https://i.ibb.co/q5zcfq8/close-up-children-painting-together-23-2149027437.jpg",
     },
     {
+      id: 6,
       title: "Join a Vibrant Community",
       description:
         "Connect with fellow art enthusiasts and be part of a vibrant community. Share ideas, collaborate on projects, and engage in creative discussions. Make lifelong friendships and create memories that will last a lifetime.",
@@ -60,27 +58,58 @@ const Banner = () => {
   ];
 
   return (
-    <div className="w-full mx-auto">
-      <Carousel showThumbs={false} selectedItem={activeImageIndex}>
-        {summerCampData.map((data, index) => (
-          <div
-            key={index}
-            className="slide relative hover:bg-opacity-50 bg-red-500 bg-cover bg-no-repeat bg-blend-overlay bg-opacity-40  bg-center bg-fixed flex flex-col items-center justify-center py-20"
-            style={{ backgroundImage: `url(${data.imageUrl})` }}
-          >
-            <div className="carousel-overlay flex items-end mb-10">
-              <div className="carousel-text text-white bg-opacity-70 bg-gray-900 hover:bg-opacity-100 p-5 rounded-lg">
-                <h1 className="text-3xl text-yellow-500   md:text-4xl tracking-[4px] uppercase font-bold mb-4">
-                  {data.title}
-                </h1>
-                <p className="text-md font-thin">{data.description}</p>
+    <section className="main-slider mt-5">
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={50}
+        className="relative group"
+        navigation={{
+          nextEl: ".button-prev-slide",
+          prevEl: ".button-next-slide",
+        }}
+        modules={[Navigation]}
+      >
+        {summerCampData.map((slider) => (
+          <SwiperSlide key={slider.id}>
+            <div className="relative">
+              <div className="grid md:grid-cols-2 md:mx-12">
+                <div className="hidden md:block"></div>
+                <img
+                  className="rounded-[50%] lg:h-[80vh] h-screen object-cover"
+                  src={slider?.imageUrl}
+                  alt=""
+                />
+              </div>
+              <div className="content grid md:grid-cols-2 items-center place-items-center absolute top-[15%] md:top-[20%] lg:top-[25%] md:mx-12 mx-10">
+                <div>
+                  <div className="bg-white p-2 bg-opacity-40 md:bg-opacity-0">
+                    <h4 className="text-base">More Lucky and trending</h4>
+                    <h3 className="text-5xl text-[#ff7703] my-2">
+                      {slider.title}
+                    </h3>
+                    <p className="text-sm">{slider.description}</p>
+                    <button className="px-7 my-2 bg-[#ff7703] text-xs text-white p-2">
+                      Shop Now
+                    </button>
+                  </div>
+                  <div className="hidden md:block"></div>
+                </div>
               </div>
             </div>
-          </div>
+
+            {/* <SingleHeroSlider slider={slider} /> */}
+          </SwiperSlide>
         ))}
-      </Carousel>
-    </div>
+        <div className="top-[50%] absolute z-10 button-next-slide md:w-10 md:h-10 grid place-items-center text-white bg-black group-hover:left-0 p-1 md:p-0 -left-[23rem] duration-500 rounded-full">
+          <FaArrowLeft />
+        </div>
+        <div className=" top-[50%] absolute z-10 button-prev-slide p-1 md:p-0  md:w-10 md:h-10 grid place-items-center text-white bg-black group-hover:right-0 -right-[23rem] duration-500 rounded-full">
+          {" "}
+          <FaArrowRight />
+        </div>
+      </Swiper>
+    </section>
   );
 };
 
-export default Banner;
+export default HeroSlider;

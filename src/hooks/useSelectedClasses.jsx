@@ -3,7 +3,7 @@ import useAuth from "./useAuth";
 import useAxiosSecure from "./useAxiosSecure";
 
 const useSelectedClasses = () => {
-  const { user, loading } = useAuth();
+  const { user, loading, setLoading } = useAuth();
 
   const [axiosSecure] = useAxiosSecure();
   const { refetch, data: selectedClasses = [] } = useQuery({

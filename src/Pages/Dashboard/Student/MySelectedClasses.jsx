@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import NotDataFound from "../../Shared/NotDataFound";
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
+import Spinner from "../../Shared/Spinner";
 
 const MySelectedClasses = () => {
   const { user } = useAuth();
@@ -48,6 +49,7 @@ const MySelectedClasses = () => {
         <title>ARTVENTURE ACADEMY | My Selected Classes</title>
       </Helmet>
       <SectionTitle subTitle="Selected Classes " title="My"></SectionTitle>
+      {selectedClasses.length === 0 && <Spinner></Spinner>}
       {selectedClasses.length > 0 ? (
         <div className="overflow-x-auto">
           <table className="table table-zebra w-full">

@@ -1,29 +1,28 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { FaEdit } from "react-icons/fa";
 import useMyClasses from "../../../hooks/useMyClasses";
 import NotDataFound from "../../Shared/NotDataFound";
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
+import Spinner from "../../Shared/Spinner";
 
 const MyClasses = () => {
   const [classes, refetch] = useMyClasses();
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [updatedClass, setUpdatedClass] = useState(null);
-  console.log(updatedClass);
+
   const openUpdateModal = (classData) => {
     setUpdatedClass(classData);
     setIsUpdateModalOpen(true);
   };
 
   const updateClass = async () => {
-    console.log(updatedClass);
     try {
-      const response = await axios.put(
+      await axios.put(
         `https://summer-camp-server-olive.vercel.app/myClasses/update/${updatedClass._id}`,
         updatedClass
       );
-      // Handle the response if necessary
-
       setIsUpdateModalOpen(false);
       refetch();
     } catch (error) {
@@ -37,36 +36,45 @@ const MyClasses = () => {
         <title>ARTVENTURE ACADEMY | My Classes</title>
       </Helmet>
       <SectionTitle subTitle="Classes" title="My"></SectionTitle>
+      {classes.length === 0 && <Spinner />}
       {classes.length > 0 ? (
         <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr>
-                <th className="px-4 py-2">Class Name</th>
-                <th className="px-4 py-2">Status</th>
-                <th className="px-4 py-2">Enrolled Students</th>
-                <th className="px-4 py-2">Feedback</th>
-                <th className="px-4 py-2">Update</th>
+          <table className="min-w-full bg-white shadow-md rounded-lg">
+            <thead className="uppercase">
+              <tr className="bg-blue-100 text-black">
+                <th className="px-6 py-3 text-left text-sm font-medium">
+                  Class Name
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-medium">
+                  Status
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-medium">
+                  Enrolled Students
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-medium">
+                  Feedback
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-medium">
+                  Update
+                </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-gray-700">
               {classes.map((classData) => (
-                <tr key={classData._id}>
-                  <td className="border px-4 py-2">{classData.className}</td>
-                  <td className="border px-4 py-2">{classData.status}</td>
-                  <td className="border px-4 py-2">
+                <tr key={classData._id} className="border-b hover:bg-gray-100">
+                  <td className="px-6 py-4">{classData.className}</td>
+                  <td className="px-6 py-4">{classData.status}</td>
+                  <td className="px-6 py-4">
                     {classData.enrolledStudents || 0}
                   </td>
-                  <td className="border px-4 py-2">
-                    {classData.feedback || ""}
-                  </td>
-                  <td className="border px-4 py-2">
+                  <td className="px-6 py-4">{classData.feedback || ""}</td>
+                  <td className="px-6 py-4">
                     <button
-                      disabled={classData?.status == "approved"}
-                      className="bg-[#2563EB] hover:bg-[#2564eba6] disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-300 text-white font-bold py-2 px-4 rounded"
+                      disabled={classData?.status === "approved"}
+                      className="flex items-center  disabled:opacity-45 disabled:cursor-not-allowed transition-colors duration-300 text-white font-bold  "
                       onClick={() => openUpdateModal(classData)}
                     >
-                      Update
+                      <FaEdit color="black" size={24} />
                     </button>
                   </td>
                 </tr>
@@ -76,9 +84,9 @@ const MyClasses = () => {
           {isUpdateModalOpen && (
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="bg-black bg-opacity-50 absolute inset-0"></div>
-              <div className="bg-white rounded p-4 z-10">
-                <h2 className="text-xl font-bold mb-4">Update Class</h2>
-                <div>
+              <div className="bg-white rounded-lg p-6 shadow-lg z-10 max-w-lg w-full">
+                <h2 className="text-2xl font-bold mb-4">Update Class</h2>
+                <div className="space-y-4">
                   <input
                     type="text"
                     value={updatedClass?.className}
@@ -88,7 +96,7 @@ const MyClasses = () => {
                         className: e.target.value,
                       })
                     }
-                    className="border w-full rounded py-2 px-4 mb-2"
+                    className="border w-full rounded py-2 px-4 mb-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Class Name"
                   />
                   <input
@@ -100,7 +108,7 @@ const MyClasses = () => {
                         status: e.target.value,
                       })
                     }
-                    className="border  w-full rounded py-2 px-4 mb-2"
+                    className="border w-full rounded py-2 px-4 mb-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Status"
                   />
                   <input
@@ -112,7 +120,7 @@ const MyClasses = () => {
                         price: e.target.value,
                       })
                     }
-                    className="border  w-full rounded py-2 px-4 mb-2"
+                    className="border w-full rounded py-2 px-4 mb-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Price"
                   />
                   <input
@@ -124,25 +132,27 @@ const MyClasses = () => {
                         imgURL: e.target.value,
                       })
                     }
-                    className="border rounded py-2 px-4 mb-2"
-                    placeholder="image"
+                    className="border w-full rounded py-2 px-4 mb-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Image URL"
                   />
                 </div>
-                <button
-                  onClick={() => updateClass(updatedClass?._id)}
-                  className="bg-[#2563EB] hover:bg-[#2564eba6] text-white font-bold py-2 px-4 rounded"
-                >
-                  Update
-                </button>
-                <button
-                  onClick={() => setIsUpdateModalOpen(false)}
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"
-                >
-                  Cancel
-                </button>
+                <div className="flex justify-end mt-4 space-x-4">
+                  <button
+                    onClick={updateClass}
+                    className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded shadow-md transition-colors duration-300"
+                  >
+                    Update
+                  </button>
+                  <button
+                    onClick={() => setIsUpdateModalOpen(false)}
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow-md transition-colors duration-300"
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
             </div>
-          )}{" "}
+          )}
         </div>
       ) : (
         <div className="text-center mt-8">
@@ -150,7 +160,7 @@ const MyClasses = () => {
             label="Add Now"
             address="../../dashboard/addAClass"
             message="You have to add to see your classes."
-          ></NotDataFound>
+          />
         </div>
       )}
     </div>

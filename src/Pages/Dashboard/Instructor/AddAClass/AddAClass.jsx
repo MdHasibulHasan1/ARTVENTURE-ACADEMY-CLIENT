@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
@@ -86,41 +85,47 @@ const AddAClass = () => {
         <title>ARTVENTURE ACADEMY | Add A Class</title>
       </Helmet>
 
-      <div className="mx-auto lg:w-11/12 shadow-2xl p-20 mb-20  bg-slate-50 justify-center  items-center">
+      <div className="mx-auto lg:w-11/12 p-20 mb-20 ">
         <SectionTitle subTitle="A Classes" title="Add"></SectionTitle>
         <form onSubmit={handleSubmit(onSubmit)} className="mx-auto">
           <div className="mb-4">
-            <label htmlFor="className" className="block mb-2">
+            <label
+              htmlFor="className"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
               Class Name:
             </label>
             <input
               type="text"
               id="className"
               name="className"
-              className="w-full p-2 border border-gray-300 rounded"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
               {...register("className")}
             />
           </div>
-          <div className="form-control w-full mb-4">
-            <label className="label">
-              <span className="label-text">Class image*</span>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Class Image:
             </label>
             <input
               type="file"
               {...register("image", { required: true })}
-              className="file-input file-input-bordered w-full "
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="instructorName" className="block mb-2">
+            <label
+              htmlFor="instructorName"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
               Instructor Name:
             </label>
             <input
               type="text"
               id="instructorName"
               name="instructorName"
-              className="w-full p-2 border border-gray-300 rounded"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100"
               readOnly
               value={user?.displayName}
               {...register("instructorName")}
@@ -128,14 +133,17 @@ const AddAClass = () => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="instructorEmail" className="block mb-2">
+            <label
+              htmlFor="instructorEmail"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
               Instructor Email:
             </label>
             <input
               type="email"
               id="instructorEmail"
               name="instructorEmail"
-              className="w-full p-2 border border-gray-300 rounded"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100"
               readOnly
               value={user?.email}
               {...register("instructorEmail")}
@@ -143,28 +151,34 @@ const AddAClass = () => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="availableSeats" className="block mb-2">
+            <label
+              htmlFor="availableSeats"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
               Available Seats:
             </label>
             <input
               type="number"
               id="availableSeats"
               name="availableSeats"
-              className="w-full p-2 border border-gray-300 rounded"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
               {...register("availableSeats")}
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="price" className="block mb-2">
+            <label
+              htmlFor="price"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
               Price:
             </label>
             <input
               type="number"
               id="price"
               name="price"
-              className="w-full p-2 border border-gray-300 rounded"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
               {...register("price")}
             />
@@ -173,10 +187,10 @@ const AddAClass = () => {
           <div>
             <button
               type="submit"
-              className="px-4 flex justify-center w-full py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              className="w-full py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-lg shadow-lg hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300 flex justify-center items-center"
             >
               {loading ? (
-                <AiOutlineLoading className="m-auto animate-spin"></AiOutlineLoading>
+                <AiOutlineLoading className="animate-spin text-xl" />
               ) : (
                 "Add A Class"
               )}

@@ -1,19 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import "./slider.css";
+import React from "react";
 
-const Banner = () => {
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
-
-  /*  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveImageIndex((prevIndex) => (prevIndex + 1) % 3);
-    }, 15000);
-
-    return () => clearInterval(interval);
-  }, []);
- */
+const Banner2 = () => {
   const summerCampData = [
     {
       title: "Welcome to Art & Craft Summer Camp!",
@@ -60,27 +47,65 @@ const Banner = () => {
   ];
 
   return (
-    <div className="w-full mx-auto">
-      <Carousel showThumbs={false} selectedItem={activeImageIndex}>
-        {summerCampData.map((data, index) => (
-          <div
-            key={index}
-            className="slide relative hover:bg-opacity-50 bg-red-500 bg-cover bg-no-repeat bg-blend-overlay bg-opacity-40  bg-center bg-fixed flex flex-col items-center justify-center py-20"
-            style={{ backgroundImage: `url(${data.imageUrl})` }}
-          >
-            <div className="carousel-overlay flex items-end mb-10">
-              <div className="carousel-text text-white bg-opacity-70 bg-gray-900 hover:bg-opacity-100 p-5 rounded-lg">
-                <h1 className="text-3xl text-yellow-500   md:text-4xl tracking-[4px] uppercase font-bold mb-4">
-                  {data.title}
-                </h1>
-                <p className="text-md font-thin">{data.description}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </Carousel>
+    <div className="carousel w-full">
+      <div id="slide1" className="carousel-item relative w-full">
+        <img
+          src="https://i.ibb.co/zmPVmbB/boy-scout-members-having-fun-nature-52683-90494.jpg"
+          className="w-full h-screen"
+        />
+        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+          <a href="#slide4" className="btn btn-circle">
+            ❮
+          </a>
+          <a href="#slide2" className="btn btn-circle">
+            ❯
+          </a>
+        </div>
+      </div>
+      <div id="slide2" className="carousel-item relative w-full">
+        <img
+          src="https://i.ibb.co/7YBbYDr/daily-lifestyle-caucasian-family-shoot-53876-42827.jpg"
+          className="w-full h-screen"
+        />
+        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+          <a href="#slide1" className="btn btn-circle">
+            ❮
+          </a>
+          <a href="#slide3" className="btn btn-circle">
+            ❯
+          </a>
+        </div>
+      </div>
+      <div id="slide3" className="carousel-item relative w-full">
+        <img
+          src="https://i.ibb.co/7SfbJf1/mosaic-puzzle-art-kids-children-s-creative-game-hands-are-playing-mosaic-table-colorful-multi-colore.jpg"
+          className="w-full h-screen"
+        />
+        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+          <a href="#slide2" className="btn btn-circle">
+            ❮
+          </a>
+          <a href="#slide4" className="btn btn-circle">
+            ❯
+          </a>
+        </div>
+      </div>
+      <div id="slide4" className="carousel-item relative w-full">
+        <img
+          src="https://i.ibb.co/q1MgnLp/two-little-girl-painter-art-drawing-park.jpg"
+          className="w-full h-screen"
+        />
+        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+          <a href="#slide3" className="btn btn-circle">
+            ❮
+          </a>
+          <a href="#slide1" className="btn btn-circle">
+            ❯
+          </a>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Banner;
+export default Banner2;

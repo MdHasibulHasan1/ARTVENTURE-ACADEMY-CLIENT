@@ -3,6 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
+import Spinner from "../../Shared/Spinner";
 
 const ManageClasses = () => {
   const [classes, setClasses] = useState([]);
@@ -71,6 +72,7 @@ const ManageClasses = () => {
     setSelectedClassId(classId);
     setFeedbackModalOpen(true);
   };
+
   const handleSubmitFeedback = async () => {
     try {
       await axios.patch(
@@ -106,13 +108,14 @@ const ManageClasses = () => {
         <title>ARTVENTURE ACADEMY | Manage Classes</title>
       </Helmet>
       <div>
-        <SectionTitle subTitle="Classes: " title="Manage"></SectionTitle>
+        <SectionTitle subTitle="Classes:" title="Manage" />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
+      {classes.length === 0 && <Spinner />}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {classes.map((classItem) => (
           <div
             key={classItem._id}
-            className="bg-white rounded-lg overflow-hidden shadow-md"
+            className="bg-white rounded-lg overflow-hidden shadow-lg transform transition duration-500 hover:scale-105"
           >
             <img
               src={classItem.imgURL}
@@ -120,41 +123,45 @@ const ManageClasses = () => {
               className="w-full h-48 object-cover"
             />
             <div className="p-4">
-              <h3 className="text-lg font-bold mb-2">{classItem.className}</h3>
-              <p className="text-gray-600 mb-2">
-                Instructor: {classItem.instructorName}
+              <h3 className="text-xl font-bold mb-2">{classItem.className}</h3>
+              <p className="text-gray-700 mb-1">
+                <span className="font-semibold">Instructor:</span>{" "}
+                {classItem.instructorName}
               </p>
-              <p className="text-gray-600 mb-2">
-                Email: {classItem.instructorEmail}
+              <p className="text-gray-700 mb-1">
+                <span className="font-semibold">Email:</span>{" "}
+                {classItem.instructorEmail}
               </p>
-              <p className="text-gray-600 mb-2">
-                Available Seats: {classItem.availableSeats}
+              <p className="text-gray-700 mb-1">
+                <span className="font-semibold">Available Seats:</span>{" "}
+                {classItem.availableSeats}
               </p>
-              <p className="text-gray-600 mb-2">Price: {classItem.price}</p>
-              <p className="text-gray-600 mb-2">Status: {classItem.status}</p>
-              <div
-                className={`grid justify-between gap-2 ${
-                  classItem.status === "denied" ? "grid-cols-3" : "grid-cols-2"
-                }`}
-              >
+              <p className="text-gray-700 mb-1">
+                <span className="font-semibold">Price:</span> ${classItem.price}
+              </p>
+              <p className="text-gray-700 mb-1">
+                <span className="font-semibold">Status:</span>{" "}
+                {classItem.status}
+              </p>
+              <div className="grid gap-2 mt-4">
                 <button
                   onClick={() => handleApprove(classItem._id)}
-                  disabled={classItem.status !== "pending"}
-                  className="bg-green-500 text-white py-2 rounded px-4  disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-300"
+                  disabled={classItem.status === "approved"}
+                  className="bg-green-500 text-white py-2 rounded-lg transition-colors duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
                   Approve
                 </button>
                 <button
                   onClick={() => handleDeny(classItem._id)}
-                  disabled={classItem.status !== "pending"}
-                  className="bg-red-500 text-white px-4 rounded py-2   disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-300"
+                  disabled={classItem.status == "pending"}
+                  className="bg-red-500 text-white py-2 rounded-lg transition-colors duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
                   Deny
                 </button>
                 {classItem.status === "denied" && (
                   <button
                     onClick={() => handleSendFeedback(classItem._id)}
-                    className="bg-blue-500 text-white px-4 py-2 rounded  "
+                    className="bg-orange-500 text-white py-2 rounded-lg transition-colors duration-300"
                   >
                     Send Feedback
                   </button>
@@ -166,25 +173,25 @@ const ManageClasses = () => {
       </div>
 
       {feedbackModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-4 rounded-md">
-            <h2 className="text-xl font-bold mb-4">Send Feedback</h2>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-auto">
+            <h2 className="text-2xl font-bold mb-4">Send Feedback</h2>
             <textarea
               value={feedbackText}
               onChange={(e) => setFeedbackText(e.target.value)}
-              className="w-full h-32 border border-gray-300 rounded-md p-2 mb-4"
+              className="w-full h-32 border border-gray-300 rounded-lg p-2 mb-4"
               placeholder="Enter your feedback"
             ></textarea>
             <div className="flex justify-end">
               <button
                 onClick={handleSubmitFeedback}
-                className="bg-blue-500  text-white px-4 py-2 rounded"
+                className="bg-orange-500 text-white px-4 py-2 rounded-lg mr-2"
               >
                 Submit
               </button>
               <button
                 onClick={() => setFeedbackModalOpen(false)}
-                className="bg-gray-300  text-gray-700 px-4 py-2 rounded ml-2"
+                className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg"
               >
                 Cancel
               </button>

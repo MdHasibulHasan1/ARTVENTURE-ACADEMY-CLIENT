@@ -15,7 +15,7 @@ const Payment = () => {
   const location = useLocation();
   const Id = location?.state;
   console.log("data by link", location?.state);
-  const selected = selectedClasses.find((item) => item.classId === Id);
+  const selected = selectedClasses?.find((item) => item.classId === Id);
 
   return (
     <div className="w-full p-6">

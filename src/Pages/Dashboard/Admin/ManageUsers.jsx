@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import { FaTrashAlt, FaUserShield } from "react-icons/fa";
 import { GiTeacher } from "react-icons/gi";
-
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
+import Spinner from "../../Shared/Spinner";
 
 const ManageUsers = () => {
   const [axiosSecure] = useAxiosSecure();
@@ -60,9 +60,7 @@ const ManageUsers = () => {
   );
 
   const handleMakeInstructor = (user) => {
-    if (user.role !== "instructor") {
-      makeInstructorMutation.mutate(user._id);
-    }
+    makeInstructorMutation.mutate(user._id);
   };
 
   const handleMakeAdmin = (user) => {
@@ -74,94 +72,82 @@ const ManageUsers = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full p-4">
       <Helmet>
         <title>ARTVENTURE ACADEMY | Manage Users</title>
       </Helmet>
 
-      <SectionTitle subTitle="Users: " title="Total"></SectionTitle>
+      <SectionTitle subTitle="Users:" title="Manage Users" />
 
-      <div className="overflow-x-auto">
-        <table className="table table-zebra w-full">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Make Admin</th>
-              <th>Make Instructor</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr key={user._id}>
-                <th>{index + 1}</th>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>
-                  {user.role === "admin"
-                    ? "admin"
-                    : user.role === "instructor"
-                    ? "instructor"
-                    : "student"}
-                </td>
-                <td>
-                  {user.role === "admin" ? (
-                    <button
-                      className="btn btn-sm btn-ghost bg-gray-400 text-white"
-                      disabled
-                    >
-                      <FaUserShield></FaUserShield>
-                    </button>
-                  ) : (
-                    <>
-                      {user.role !== "admin" && (
-                        <button
-                          onClick={() => handleMakeAdmin(user)}
-                          className="btn btn-sm btn-ghost bg-red-600 text-white"
-                          disabled={makeAdminMutation.isLoading}
-                        >
-                          <FaUserShield></FaUserShield>
-                        </button>
-                      )}
-                    </>
-                  )}
-                </td>
-                <td>
-                  {user.role === "instructor" && (
-                    <button
-                      className="btn btn-sm btn-ghost bg-blue-600 text-white"
-                      disabled
-                    >
-                      <GiTeacher></GiTeacher>
-                    </button>
-                  )}
-                  {user.role !== "instructor" && (
-                    <button
-                      onClick={() => handleMakeInstructor(user)}
-                      className="btn btn-sm btn-ghost bg-blue-600 text-white"
-                      disabled={makeInstructorMutation.isLoading}
-                    >
-                      <GiTeacher></GiTeacher>
-                    </button>
-                  )}
-                </td>
-                <td>
-                  <button
-                    onClick={() => handleDelete(user)}
-                    className="btn btn-sm btn-ghost bg-red-600 text-white"
-                  >
-                    <FaTrashAlt></FaTrashAlt>
-                  </button>
-                </td>
+      {users.length === 0 ? (
+        <Spinner />
+      ) : (
+        <div className="overflow-x-auto ">
+          <table className="table-auto w-full text-left whitespace-no-wrap">
+            <thead>
+              <tr>
+                <th className="px-4 py-3">#</th>
+                <th className="px-4 py-3">Name</th>
+                <th className="px-4 py-3">Email</th>
+                <th className="px-4 py-3">Role</th>
+                <th className="px-4 py-3">Actions</th>
+                <th className="px-4 py-3">Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {users.map((user, index) => (
+                <tr key={user._id} className="hover:bg-gray-100">
+                  <td className="px-4 py-3">{index + 1}</td>
+                  <td className="px-4 py-3">{user.name}</td>
+                  <td className="px-4 py-3">{user.email}</td>
+                  <td className="px-4 py-3">
+                    {user.role === "admin" ? (
+                      <span className="text-red-600">Admin</span>
+                    ) : user.role === "instructor" ? (
+                      <span className="text-blue-600">Instructor</span>
+                    ) : (
+                      <span className="text-green-600">Student</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3 flex space-x-2">
+                    <div className="tooltip" data-tip="Make Admin">
+                      <button
+                        onClick={() => handleMakeAdmin(user)}
+                        className="btn btn-sm bg-red-600 text-white"
+                        disabled={
+                          user.role === "admin" || makeAdminMutation.isLoading
+                        }
+                      >
+                        <FaUserShield />
+                      </button>
+                    </div>
+                    <div className="tooltip" data-tip="Make Instructor">
+                      <button
+                        onClick={() => handleMakeInstructor(user)}
+                        className="btn btn-sm bg-blue-600 text-white"
+                        disabled={
+                          user.role === "instructor" ||
+                          makeInstructorMutation.isLoading
+                        }
+                      >
+                        <GiTeacher />
+                      </button>
+                    </div>
+                  </td>
+                  <td className="px-4 py-3">
+                    <button
+                      onClick={() => handleDelete(user)}
+                      className="btn btn-sm bg-red-600 text-white"
+                    >
+                      <FaTrashAlt />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

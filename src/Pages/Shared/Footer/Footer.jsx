@@ -17,9 +17,20 @@ const Footer = () => {
           <div className="flex flex-wrap">
             {/* Section 1 */}
             <div className="w-full md:w-1/2 lg:w-1/4 mb-6 md:mb-0">
-              <h3 className="text-black text-lg font-semibold mb-4">
-                ARTVENTURE ACADEMY
-              </h3>
+              <Link
+                href="/"
+                className={`
+                    text-[#ff7703]
+                  text-lg font-bold flex gap-3 items-center`}
+              >
+                <img
+                  className="w-[80px] object-contain h-10 "
+                  src="artventure.png"
+                  alt=""
+                />{" "}
+                <span className="text-gray-900">Academy</span>
+              </Link>
+
               <p className="text-black">
                 ARTVENTURE ACADEMY is a leading institution for art education
                 and exploration, providing creative programs and workshops for

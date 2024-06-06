@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Reveal from "react-awesome-reveal";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -10,16 +10,19 @@ import useUsers from "../../hooks/useUsers";
 import { Helmet } from "react-helmet-async";
 import SectionTitle from "../Shared/SectionTitle/SectionTitle";
 import useMyEnrolledClasses from "../../hooks/useMyEnrolledClasses";
+import Spinner from "../Shared/Spinner";
 
 const Classes = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [selectedClasses, refetch] = useSelectedClasses();
   const [users, isUserLoading] = useUsers();
   const currentUser = users.find((us) => us?.email === user?.email);
   const [enrolledClasses, refetchEnrolledClasses] = useMyEnrolledClasses();
 
   const [classes, setClasses] = useState([]);
+  const [loadingClasses, setLoadingClasses] = useState(true);
 
   useEffect(() => {
     fetchClasses();
@@ -32,6 +35,7 @@ const Classes = () => {
       .get(url)
       .then((response) => {
         setClasses(response.data);
+        setLoadingClasses(false);
       })
       .catch((error) => {
         console.error(error);
@@ -57,6 +61,7 @@ const Classes = () => {
         cancelButtonColor: "#d33",
         confirmButtonText: "Login now!",
       }).then((result) => {
+        console.log(result);
         if (result.isConfirmed) {
           navigate("/login", { state: { from: location } });
         }
@@ -96,7 +101,8 @@ const Classes = () => {
         <title>ARTVENTURE ACADEMY | Classes</title>
       </Helmet>
       <SectionTitle subTitle="Classes" title="Our"></SectionTitle>
-      <div className="group grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {loadingClasses && <Spinner></Spinner>}
+      <div className="group grid gap-6 grid-cols-1 text-gray-950 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {classes.map((classItem, index) => (
           <Reveal
             key={classItem._id}
@@ -128,22 +134,20 @@ const Classes = () => {
                 <h3 className="text-xl font-bold mb-2">
                   {classItem.className}
                 </h3>
-                <p className="text-sm text-gray-600 mb-2">
+                <p className="text-sm  mb-2">
                   Instructor: {classItem.instructorName}
                 </p>
-                <p className="text-sm text-gray-600 mb-2">
+                <p className="text-sm  mb-2">
                   Available Seats: {classItem.availableSeats}
                 </p>
-                <p className="text-sm text-gray-600 mb-4">
-                  Price: {classItem.price}
-                </p>
+                <p className="text-sm  mb-4">Price: {classItem.price}</p>
 
                 <button
                   disabled={
                     classItem.availableSeats == "0" ||
                     currentUser?.role === "admin" ||
                     currentUser?.role === "instructor" ||
-                    selectedClasses.find(
+                    selectedClasses?.find(
                       (selected) => selected.classId === classItem._id
                     ) ||
                     enrolledClasses.find(
@@ -152,7 +156,7 @@ const Classes = () => {
                     )
                   }
                   onClick={() => handleSelect(classItem)}
-                  className="px-4 py-2 w-full bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-300"
+                  className="px-4 py-2 w-full bg-[#ff7703] text-white rounded hover:bg-orange-400 disabled:bg-gray-500 disabled:border border-gray-700 disabled:cursor-not-allowed transition-colors duration-300"
                 >
                   {enrolledClasses.find(
                     (enrolledClass) =>

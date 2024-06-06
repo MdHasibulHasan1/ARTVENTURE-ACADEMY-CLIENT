@@ -102,7 +102,7 @@ const UserProfile = () => {
               name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="form-input p-2 mt-1 block w-full border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 hover:border-blue-500 hover:ring-blue-500"
+              className="form-input p-2 mt-1 block w-full border border-gray-300 rounded-lg focus:border-[#ff7703] focus:ring-[#ff7703] hover:border-[#ff7703] hover:ring-[#ff7703]"
             />
           </div>
           <div className="mb-4">
@@ -119,7 +119,7 @@ const UserProfile = () => {
               value={photoURL}
               required
               onChange={(e) => setPhotoURL(e.target.value)}
-              className="form-input p-2 mt-1 block w-full border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 hover:border-blue-500 hover:ring-blue-500"
+              className="form-input p-2 mt-1 block w-full border border-gray-300 rounded-lg focus:border-[#ff7703] focus:ring-[#ff7703] hover:border-[#ff7703] hover:ring-[#ff7703]"
             />
           </div>
 
@@ -137,7 +137,7 @@ const UserProfile = () => {
               required
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className="form-input p-2 mt-1 block w-full border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 hover:border-blue-500 hover:ring-blue-500"
+              className="form-input p-2 mt-1 block w-full border border-gray-300 rounded-lg focus:border-[#ff7703] focus:ring-[#ff7703] hover:border-[#ff7703] hover:ring-[#ff7703]"
             />
           </div>
 
@@ -153,7 +153,7 @@ const UserProfile = () => {
               name="gender"
               value={gender}
               onChange={(e) => setGender(e.target.value)}
-              className="form-select p-2 mt-1 block w-full border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 hover:border-blue-500 hover:ring-blue-500"
+              className="form-select p-2 mt-1 block w-full border border-gray-300 rounded-lg focus:border-[#ff7703] focus:ring-[#ff7703] hover:border-[#ff7703] hover:ring-[#ff7703]"
             >
               <option value="">Select Gender</option>
               <option value="male">Male</option>
@@ -168,7 +168,7 @@ const UserProfile = () => {
             defaultCountry="BD"
             onChange={handlePhoneChange}
             placeholder="Phone Number"
-            className=" p-2 mt-1 block w-full border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 hover:border-blue-500 hover:ring-blue-500"
+            className=" p-2 mt-1 block w-full border border-gray-300 rounded-lg focus:border-[#ff7703] focus:ring-[#ff7703] hover:border-[#ff7703] hover:ring-[#ff7703]"
           />
         </div>
         <div className="flex grow items-center justify-center">

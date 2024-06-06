@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 import Reveal from "react-awesome-reveal";
+import Spinner from "../../Shared/Spinner";
 
 const PopularInstructors = () => {
   const [instructors, setInstructors] = useState([]);
@@ -24,6 +25,7 @@ const PopularInstructors = () => {
   return (
     <div>
       <SectionTitle subTitle="Popular Instructors" title="Our"></SectionTitle>
+      {instructors.length == 0 && <Spinner></Spinner>}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 justify-center">
         {instructors.map((instructor, index) => (
           <Reveal
